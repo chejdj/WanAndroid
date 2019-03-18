@@ -1,0 +1,61 @@
+package com.chejdj.wanandroid.ui.knowledgehierarchy.presenter;
+
+import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectoryRes;
+import com.chejdj.wanandroid.ui.knowledgehierarchy.contract.KnowledgeHierContract;
+import com.chejdj.wanandroid.ui.knowledgehierarchy.model.KnowledgeHierModel;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
+
+public class KnowledgeHierPresenter implements KnowledgeHierContract.Presenter {
+    private KnowledgeHierContract.View view;
+    private KnowledgeHierContract.Model model;
+
+    public KnowledgeHierPresenter(KnowledgeHierContract.View view) {
+        this.view = view;
+        this.model = new KnowledgeHierModel();
+    }
+
+    @Override
+    public void getDetailKnowledgeHier() {
+        model.getDetailKnowledgeHierFromIn()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<PrimaryArticleDirectoryRes>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(PrimaryArticleDirectoryRes primaryArticleDirectoryRes) {
+                        if (view != null) {
+                            //errorCode 为-1代表错误
+                            if (primaryArticleDirectoryRes.getErrorCode() >= 0) {
+                                view.updateDetailKnowledgeHier(primaryArticleDirectoryRes);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    @Override
+    public void destory() {
+        view = null;
+        System.gc();
+    }
+}

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="@drawable/white_ripple_bg"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="8dp"
+    app:cardMaxElevation="8dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    app:contentPaddingBottom="8dp"
+    app:contentPaddingLeft="8dp"
+    app:contentPaddingRight="8dp"
+    app:contentPaddingTop="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/project_image"
+            android:layout_width="40dp"
+            android:layout_height="80dp"
+            android:contentDescription="@string/project_image"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="20dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@id/project_image"
+            android:text="hello"
+            android:textColor="@color/black"
+            android:textSize="@dimen/article_title_tx" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="8dp"
+            android:layout_toStartOf="@id/project_image"
+            android:maxLines="3"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/article_description_tx" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/clock"
+            android:drawablePadding="4dp"
+            android:text="2019=02-18"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/article_time_tx" />
+
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/time"
+            android:text="\@郭霖"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/article_author_tx" />
+
+        <TextView
+            android:id="@+id/tags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/home_tag_tv_bg"
+            android:padding="2dp"
+            android:text="公众号"
+            android:textColor="@color/green"
+            android:textSize="@dimen/article_tags_tx" />
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/tags"
+            android:text="公众号/郭霖"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/article_category_tx" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

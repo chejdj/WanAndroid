@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">WanAndroid</string>
+    <string name="menu_home">首页</string>
+    <string name="menu_knowledge_hierarchy">体系</string>
+    <string name="menu_wechat_sub">公众号</string>
+    <string name="menu_project">项目</string>
+    <string name="menu_me">我</string>
+    <string name="home_title">首页</string>
+    <string name="me_title">我的</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="register_new_account">注册新账号</string>
+    <string name="register_and_login">注册并登录</string>
+    <string name="login_warning">请输入完整！</string>
+    <string name="logout_warning">确定退出登录？</string>
+    <string name="logout_collect_warning">登录之后才可以查看收藏的文章</string>
+    <string name="search_tx">输入想搜索的东西</string>
+    <string name="hot_search">热门搜索</string>
+    <string name="knowledge_hier">体系</string>
+    <string name="no_collected_article">没有收藏的文章，快去收藏吧！</string>
+    <string name="collect_fail">收藏失败</string>
+    <string name="cancel_collect_fail">取消收藏失败</string>
+    <string name="network_error_title">网络出错了</string>
+    <string name="network_error_warning">请检查一下网络，再试!</string>
+    <string name="back">后退</string>
+    <string name="search">搜索</string>
+    <string name="login_logout">登录或退出</string>
+    <string name="project_image">项目照片</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/menu_home_"
+        android:title="@string/menu_home" />
+    <item
+        android:id="@+id/menu_knowledge_hierarchy"
+        android:icon="@drawable/menu_knowledge_hierarchy"
+        android:title="@string/menu_knowledge_hierarchy" />
+    <item
+        android:id="@+id/meun_wechat_sub"
+        android:icon="@drawable/menu_wechat_sub"
+        android:title="@string/menu_wechat_sub"
+        />
+    <item
+        android:id="@+id/menu_project"
+        android:icon="@drawable/menu_project"
+        android:title="@string/menu_project"/>
+    <item
+        android:id="@+id/menu_me"
+        android:icon="@drawable/menu_me"
+        android:title="@string/menu_me"/>
+</menu>

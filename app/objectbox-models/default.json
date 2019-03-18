@@ -1,0 +1,186 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:664001970280507653",
+      "lastPropertyId": "5:8793973309910436162",
+      "name": "CollectArticleDB",
+      "properties": [
+        {
+          "id": "1:58205549461938674",
+          "name": "id"
+        },
+        {
+          "id": "2:2528233009211686605",
+          "name": "link"
+        },
+        {
+          "id": "3:2266119149649428260",
+          "name": "title"
+        },
+        {
+          "id": "4:2693233971392843470",
+          "name": "author"
+        },
+        {
+          "id": "5:8793973309910436162",
+          "name": "time"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:5698140779069666192",
+      "lastPropertyId": "23:6674886260942229012",
+      "name": "HomeArticleDB",
+      "properties": [
+        {
+          "id": "1:5764670931996846754",
+          "name": "id"
+        },
+        {
+          "id": "2:6910667684629461428",
+          "name": "apkLink"
+        },
+        {
+          "id": "3:1782993564412497760",
+          "name": "author"
+        },
+        {
+          "id": "4:5766359041872049163",
+          "name": "chapterId"
+        },
+        {
+          "id": "5:5926255670117967703",
+          "name": "chapterName"
+        },
+        {
+          "id": "6:7462192780479451313",
+          "name": "collect"
+        },
+        {
+          "id": "7:6392409850093189159",
+          "name": "courseId"
+        },
+        {
+          "id": "8:4157650027394108515",
+          "name": "desc"
+        },
+        {
+          "id": "9:4634757960363752736",
+          "name": "envelopePic"
+        },
+        {
+          "id": "10:4379291161310202373",
+          "name": "fresh"
+        },
+        {
+          "id": "11:6782049750813406900",
+          "name": "link"
+        },
+        {
+          "id": "12:9061103424086897860",
+          "name": "niceDate"
+        },
+        {
+          "id": "13:7260964996855447221",
+          "name": "origin"
+        },
+        {
+          "id": "14:8901584447268266559",
+          "name": "projectLink"
+        },
+        {
+          "id": "15:7703345772075590996",
+          "name": "publishTime"
+        },
+        {
+          "id": "16:1269849758583961268",
+          "name": "superChapterId"
+        },
+        {
+          "id": "17:8937874608329750722",
+          "name": "superChapterName"
+        },
+        {
+          "id": "18:2517628990304266025",
+          "name": "tags"
+        },
+        {
+          "id": "19:3237452812323685420",
+          "name": "title"
+        },
+        {
+          "id": "20:3842174202993315823",
+          "name": "type"
+        },
+        {
+          "id": "21:2476059398584464001",
+          "name": "userId"
+        },
+        {
+          "id": "22:8992215598773853212",
+          "name": "visible"
+        },
+        {
+          "id": "23:6674886260942229012",
+          "name": "zan"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:8690657876901282683",
+      "lastPropertyId": "8:6266335322913899321",
+      "name": "HomeBannerDB",
+      "properties": [
+        {
+          "id": "1:7374756260929431242",
+          "name": "id"
+        },
+        {
+          "id": "2:3603044014081610172",
+          "name": "desc"
+        },
+        {
+          "id": "3:3778157151249679923",
+          "name": "imagePath"
+        },
+        {
+          "id": "4:5383767156053716207",
+          "name": "isVisible"
+        },
+        {
+          "id": "5:3936795861723196489",
+          "name": "order"
+        },
+        {
+          "id": "6:6963720018976341953",
+          "name": "title"
+        },
+        {
+          "id": "7:6906741921669206998",
+          "name": "type"
+        },
+        {
+          "id": "8:6266335322913899321",
+          "name": "url"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "3:8690657876901282683",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

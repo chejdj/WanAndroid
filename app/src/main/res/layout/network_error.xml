@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorAccent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/network_error_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/toolbar_title_tx" />
+    </android.support.v7.widget.Toolbar>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/network_error"
+        android:contentDescription="@string/network_error_warning"
+        />
+    <TextView
+        android:layout_below="@id/image"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/network_error_warning"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+
+        />
+
+
+</RelativeLayout>

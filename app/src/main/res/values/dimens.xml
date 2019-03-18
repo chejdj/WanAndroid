@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--toolbar 相关-->
+    <dimen name="toolbar_title_tx">16sp</dimen>
+    <dimen name="toolbar_iv_width">24dp</dimen>
+    <dimen name="toolbar_iv_height">24dp</dimen>
+
+    <!--article相关-->
+    <dimen name="article_title_tx">16sp</dimen>
+    <dimen name="article_description_tx">12sp</dimen>
+    <dimen name="article_tags_tx">11sp</dimen>
+    <dimen name="article_time_tx">12sp</dimen>
+    <dimen name="article_author_tx">12sp</dimen>
+    <dimen name="article_category_tx">12sp</dimen>
+
+
+    <!--login 相关-->
+    <dimen name="login_height_et">60dp</dimen>
+
+
+    <!--margin相关-->
+    <dimen name="margin_normal">8dp</dimen>
+
+</resources>

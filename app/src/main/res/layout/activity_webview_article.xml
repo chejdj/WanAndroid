@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.webviewarticle.WebViewArticleActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/articleToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorAccent"
+        app:navigationIcon="@drawable/back"
+        android:fitsSystemWindows="true"
+        android:layout_alignParentTop="true"
+        >
+    </android.support.v7.widget.Toolbar>
+    <WebView
+        android:id="@+id/webView"
+        android:layout_below="@id/articleToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </WebView>
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/moreSetting"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        app:fab_addButtonColorNormal="@color/colorAccent"
+        app:fab_addButtonColorPressed="@color/colorAccent"
+        >
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/share"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:fab_colorNormal="@color/colorAccent"
+            app:fab_icon="@drawable/share"
+            />
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/collect"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="centerCrop"
+            app:fab_icon="@drawable/collect_no"
+            app:fab_colorNormal="@color/colorAccent"
+            />
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+</RelativeLayout>

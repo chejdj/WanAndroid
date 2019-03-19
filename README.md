@@ -2,7 +2,7 @@
 #### 项目介绍
 **一款每日推荐优质文章的APP,该项目是鸿洋大佬推荐Andorid开发者的一个开源项目，项目中的API为鸿洋大佬提供([API直通车](https://www.wanandroid.com/blog/show/2))，此项目基于Java+Material Design+MVP+RxJava2+Retrofit等一些主流框架搭建而成**  
 #### 项目背景  
-首先介绍一下自己，自己是一个大学即将毕业的Andorid初级开发者，在找工作的时候，看过一些面经，但是忘记快又理解不深刻，于是想要拿一个项目练练手，加深一下对知识点的理解，以及对于Andorid开发整个流程的梳理，这个项目希望大家一起学习，探讨尤其是对于Android新手如何写代码的通病以及如何写出高效简洁的代码，欢迎issue，star。  
+首先介绍一下自己，自己是一个大学即将毕业的Andorid初级开发者，在找工作的时候，看过一些面经，但是忘记快又理解不深刻，于是想要拿一个项目练练手，加深一下对知识点的理解，以及对于Andorid开发整个流程的梳理，这个项目希望大家一起学习，探讨,尤其是对于Android新手如何写代码的通病以及如何写出高效简洁的代码(希望有大佬指点)，欢迎issue，star。  
 #### 整体模块
 此项目的整体框架如下：
 * 首页模块：轮番广告显示,最新文章推送
@@ -37,6 +37,9 @@
 * [Android MVP架构从入门到精通-真枪实弹](https://www.wanandroid.com/blog/show/2440)
 * [你真的会用Retrofit2吗?Retrofit2完全教程](https://www.jianshu.com/p/308f3c54abdd)  
 #### 项目一览  
+![启动页](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/article.png?token=AQ4Myf84TvVLt6RGkJBfsOBAnTDLblYnks5cmY0rwA%3D%3D) ![首页](image/home.png)  ![知识体系](image/knowledgeArch.png)  ![详情知识体系文章](image/detail_knowledge.png)  
+![微信公众号](image/wechat.png) ![项目](image/project.png)  ![登录](image/login.png) ![我的](image/me.png)  
+![搜索热词](image/search_hot_keys.png) ![搜索](image/search.png) ![文章](image/article.png)  
 #### 项目资源  
 1. APP下载:  
 2. 项目地址: https://github.com/chejdj/WanAndroid

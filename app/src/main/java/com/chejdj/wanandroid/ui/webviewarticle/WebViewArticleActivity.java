@@ -13,6 +13,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.chejdj.wanandroid.R;
+import com.chejdj.wanandroid.db.account.AccountManager;
 import com.chejdj.wanandroid.network.bean.article.Article;
 import com.chejdj.wanandroid.ui.base.WanAndroidMvpBaseActivty;
 import com.chejdj.wanandroid.ui.webviewarticle.contract.WebViewArticleContract;
@@ -25,7 +26,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-//从首页进来的，都默认为未收藏状态
+//从首页进来的，都默认为未收藏状态(因为没有这个接口，查询是否收藏)
 //从收藏页过来的，都是收藏状态
 public class WebViewArticleActivity extends WanAndroidMvpBaseActivty implements WebViewArticleContract.View {
     private static final String ARTICLE_NAME = "article";
@@ -41,7 +42,7 @@ public class WebViewArticleActivity extends WanAndroidMvpBaseActivty implements 
 
     @Override
     protected int getLayoutId() {
-        if(NetUtils.getNetWorkState()<0){
+        if (NetUtils.getNetWorkState() < 0) {
             return R.layout.network_error;
         }
         return R.layout.activity_webview_article;
@@ -117,10 +118,14 @@ public class WebViewArticleActivity extends WanAndroidMvpBaseActivty implements 
 
     @OnClick(R.id.collect)
     public void collectArticle() {
-        if (collectState) {
-            ((WebViewArticlePresenter) presenter).cancelCollect(article);
+        if (AccountManager.getInstance().isLogin()) {
+            if (collectState) {
+                ((WebViewArticlePresenter) presenter).cancelCollect(article);
+            } else {
+                ((WebViewArticlePresenter) presenter).collect(article);
+            }
         } else {
-            ((WebViewArticlePresenter) presenter).collect(article);
+            Toast.makeText(this, StringUtil.getString(this, R.string.please_login), Toast.LENGTH_SHORT).show();
         }
     }
 

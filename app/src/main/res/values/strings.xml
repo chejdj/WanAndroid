@@ -28,4 +28,5 @@
     <string name="search">搜索</string>
     <string name="login_logout">登录或退出</string>
     <string name="project_image">项目照片</string>
+    <string name="please_login">请先登录，再收藏！！</string>
 </resources>

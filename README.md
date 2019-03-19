@@ -45,8 +45,8 @@
 
 ![搜索](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/search.png?token=AQ4MySH6FlcA90BGrtyjntteyjqyn54hks5cmZBtwA%3D%3D)![文章](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/article.png?token=AQ4MyZ4y36FW7ccDsmyNSgHvBz7Ye3QRks5cmZCFwA%3D%3D)  
 #### 项目资源  
-1. APP下载地址[https://github.com/chejdj/WanAndroid/releases/download/1.1.0/WanAndroid.apk]，二维码  
-![二维码]()
+1. [APP下载地址](https://github.com/chejdj/WanAndroid/releases/download/1.1.0/WanAndroid.apk)，二维码  
+![二维码](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/apk_download.png?token=AQ4MyetxedPcdCiFzSMyeatEu1ELmr3Xks5cmegGwA%3D%3D)  
 2. 项目地址: https://github.com/chejdj/WanAndroid
 
 

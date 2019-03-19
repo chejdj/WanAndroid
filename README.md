@@ -37,11 +37,16 @@
 * [Android MVP架构从入门到精通-真枪实弹](https://www.wanandroid.com/blog/show/2440)
 * [你真的会用Retrofit2吗?Retrofit2完全教程](https://www.jianshu.com/p/308f3c54abdd)  
 #### 项目一览  
-![启动页](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/article.png?token=AQ4Myf84TvVLt6RGkJBfsOBAnTDLblYnks5cmY0rwA%3D%3D) ![首页](image/home.png)  ![知识体系](image/knowledgeArch.png)  ![详情知识体系文章](image/detail_knowledge.png)  
-![微信公众号](image/wechat.png) ![项目](image/project.png)  ![登录](image/login.png) ![我的](image/me.png)  
-![搜索热词](image/search_hot_keys.png) ![搜索](image/search.png) ![文章](image/article.png)  
+![启动页](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/start.png?token=AQ4MyR7l6VVBBAtmu58KP5JDaqCvBeeuks5cmY9GwA%3D%3D)![首页](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/home.png?token=AQ4MyRfQ4zg_fKBxyoT20J_lbKqK5yA1ks5cmY9fwA%3D%3D)![知识体系](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/knowledgeArch.png?token=AQ4MyeEP5r7eQBbuzhnjY47bZ4TtVG7cks5cmY97wA%3D%3D)  
+
+![详情知识体系文章](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/detail_knowledge.png?token=AQ4MyVOiuSZondN8kyVxxUvM53Sy3av7ks5cmY-SwA%3D%3D)![微信公众号](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/wechat.png?token=AQ4MyczK2p_uOBaMH3fHpijwmpeCAj79ks5cmZLqwA%3D%3D)![项目](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/project.png?token=AQ4MySYP3LhA_S0m-99uQl05v7hJvdLWks5cmY_JwA%3D%3D)  
+
+![登录](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/login.png?token=AQ4MyaDqXbyvT1_7QGZ9tnTuylsr25UZks5cmY_rwA%3D%3D)![我的](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/me.png?token=AQ4MyXe7t_GjrtN2f6fH4TblvcbBSHIxks5cmZACwA%3D%3D)![搜索热词](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/search_hot_keys.png?token=AQ4MySHXivZbbxGsRxKDT28I9F15fbeMks5cmZAdwA%3D%3D)  
+
+![搜索](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/search.png?token=AQ4MySH6FlcA90BGrtyjntteyjqyn54hks5cmZBtwA%3D%3D)![文章](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/article.png?token=AQ4MyZ4y36FW7ccDsmyNSgHvBz7Ye3QRks5cmZCFwA%3D%3D)  
 #### 项目资源  
-1. APP下载:  
+1. APP下载地址[https://github.com/chejdj/WanAndroid/releases/download/1.1.0/WanAndroid.apk]，二维码  
+![二维码]()
 2. 项目地址: https://github.com/chejdj/WanAndroid
 
 

@@ -3,6 +3,7 @@ package com.chejdj.wanandroid.ui.me.model;
 import com.chejdj.wanandroid.db.entity.CollectArticleDB;
 import com.chejdj.wanandroid.db.tablemanager.CollectArticleTableManager;
 import com.chejdj.wanandroid.network.HttpService;
+import com.chejdj.wanandroid.network.bean.article.Article;
 import com.chejdj.wanandroid.network.bean.article.ArticleDataRes;
 import com.chejdj.wanandroid.ui.me.contract.MeContract;
 
@@ -25,6 +26,16 @@ public class MeModel implements MeContract.Model {
     @Override
     public Observable<Boolean> updateCollectArticleDB(List<CollectArticleDB> data) {
         return CollectArticleTableManager.getInstance().updateCollectArticleDB(data);
+    }
+
+    @Override
+    public Observable<Boolean> insertCollectArticle(Article article) {
+        return CollectArticleTableManager.getInstance().insertCollectArticle(article);
+    }
+
+    @Override
+    public Observable<Boolean> deleteCollectArticle(String title, String author) {
+        return CollectArticleTableManager.getInstance().deleteCollectArticle(title,author);
     }
 
 }

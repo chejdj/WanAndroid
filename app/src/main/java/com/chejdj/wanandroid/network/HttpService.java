@@ -127,7 +127,7 @@ public class HttpService {
     取消收藏文章
      */
     public Observable<ArticleDataRes> cancelCollectArticle(int articleId) {
-        return apiService.cancelCollectedArticle(articleId);
+        return apiService.cancelCollectedArticle(articleId,-1);
     }
 
     /*

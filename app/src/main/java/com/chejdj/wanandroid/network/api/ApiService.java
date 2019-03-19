@@ -92,8 +92,9 @@ public interface ApiService {
     /*
     取消收藏的文章
      */
-    @POST("lg/uncollect_originId/{articleId}/json")
-    Observable<ArticleDataRes> cancelCollectedArticle(@Path("articleId") int articleId);
+    @POST("lg/uncollect/{articleId}/json")
+    @FormUrlEncoded
+    Observable<ArticleDataRes> cancelCollectedArticle(@Path("articleId") int articleId,@Field("originId")int originId);
 
     /*
     收藏站内文章

@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
+import android.widget.FrameLayout;
 
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.article.Article;
@@ -20,7 +20,7 @@ import com.chejdj.wanandroid.ui.home.contract.HomeContract;
 import com.chejdj.wanandroid.ui.home.presenter.HomePresenter;
 import com.chejdj.wanandroid.ui.search.SearchActivity;
 import com.chejdj.wanandroid.ui.webviewarticle.WebViewArticleActivity;
-import com.chejdj.wanandroid.util.CommonHandler;
+import com.chejdj.wanandroid.util.WeakHandler;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class HomeFragment extends WanAndroidBaseFragment implements HomeContract
     private int currentPage = 0;
     private int totalPage = 0;
     private CommonArticleAdapter commonArticleAdapter;
-    private CommonHandler delayHandler;
+    private WeakHandler delayHandler;
 
     @Override
     protected int getLayoutId() {
@@ -56,14 +56,15 @@ public class HomeFragment extends WanAndroidBaseFragment implements HomeContract
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
-        View headView = LayoutInflater.from(getContext()).inflate(R.layout.banner_home, null);
+        FrameLayout headView = (FrameLayout) LayoutInflater.from(getContext()).inflate(R.layout.banner_home, null);
         homeBanner = headView.findViewById(R.id.home_banner);
+        headView.removeView(homeBanner);
         homeBanner.setImageLoader(new HomeBannerLoader());
         homeBanner.setImages(bannerList);
         homeBanner.start();
 
         commonArticleAdapter = new CommonArticleAdapter(R.layout.item_article, articleList);
-        commonArticleAdapter.addHeaderView(headView);
+        commonArticleAdapter.addHeaderView(homeBanner);
         commonArticleAdapter.setEnableLoadMore(true);
 
         recyclerView.setAdapter(commonArticleAdapter);
@@ -77,18 +78,28 @@ public class HomeFragment extends WanAndroidBaseFragment implements HomeContract
     private void initData() {
         articleList = new ArrayList<>();
         bannerList = new ArrayList<>();
-        delayHandler = new CommonHandler(getActivity()) {
-            @Override
-            public void handleMessage(Message msg) {
-                switch (msg.what) {
-                    case 1:
-                        ((HomePresenter) presenter).start();
-                        refreshLayout.setRefreshing(false);
-                }
-            }
-        };
+        delayHandler = new WeakHandler((Message msg) -> {
+            ((HomePresenter) presenter).start();
+            refreshLayout.setRefreshing(false);
+            return true;
+        });
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (homeBanner != null) {
+            homeBanner.stopAutoPlay();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (homeBanner != null) {
+            homeBanner.startAutoPlay();
+        }
+    }
 
     private void refreshAndloadMore() {
         commonArticleAdapter.setOnLoadMoreListener(() -> {
@@ -98,7 +109,7 @@ public class HomeFragment extends WanAndroidBaseFragment implements HomeContract
                 commonArticleAdapter.loadMoreEnd();
             }
         }, recyclerView);
-        refreshLayout.setOnRefreshListener(() -> delayHandler.sendMessageDelayed(delayHandler.obtainMessage(1), 2000));
+        refreshLayout.setOnRefreshListener(() -> delayHandler.sendMessageDelayed(Message.obtain(), 2000));
         homeBanner.setOnBannerListener((position) -> {
             HomeBanner banner = bannerList.get(position);
             Article article = new Article();

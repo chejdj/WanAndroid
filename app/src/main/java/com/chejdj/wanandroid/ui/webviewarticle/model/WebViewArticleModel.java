@@ -12,19 +12,16 @@ import io.reactivex.Observable;
 public class WebViewArticleModel implements WebViewArticleContract.Model {
     @Override
     public Observable<Boolean> insertCollectArticle(Article article) {
-        //TODO 有待完善
         return CollectArticleTableManager.getInstance().insertCollectArticle(article);
     }
 
     @Override
     public Observable<Boolean> deleteCollectArticle(String title, String author) {
-        //TODO 有待完善
         return CollectArticleTableManager.getInstance().deleteCollectArticle(title, author);
     }
 
     @Override
     public Observable<Boolean> isExistsCollectArticle(String title, String author) {
-        //TODO 有待完善
         return CollectArticleTableManager.getInstance().isExists(title, author);
     }
 

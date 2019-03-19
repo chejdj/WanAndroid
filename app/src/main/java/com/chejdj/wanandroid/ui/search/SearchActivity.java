@@ -17,6 +17,7 @@ import com.chejdj.wanandroid.ui.base.WanAndroidMvpBaseActivty;
 import com.chejdj.wanandroid.ui.commonarticlelist.CommonArticleAdapter;
 import com.chejdj.wanandroid.ui.search.contract.SearchContract;
 import com.chejdj.wanandroid.ui.search.presenter.SearchPresenter;
+import com.chejdj.wanandroid.ui.webviewarticle.WebViewArticleActivity;
 import com.chejdj.wanandroid.util.NetUtils;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -39,6 +40,7 @@ public class SearchActivity extends WanAndroidMvpBaseActivty implements SearchCo
     RecyclerView recyclerView;
 
     private List<HotKey> hotKeyList;
+    private List<Article> articleList;
     private CommonArticleAdapter adapter;
     private int currentPage = 0;
     private int totalPage = 0;
@@ -56,7 +58,7 @@ public class SearchActivity extends WanAndroidMvpBaseActivty implements SearchCo
     @Override
     protected void initView() {
         hotKeyList = new ArrayList<>();
-        List<Article> articleList = new ArrayList<>();
+        articleList = new ArrayList<>();
         mInflater = LayoutInflater.from(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -81,6 +83,11 @@ public class SearchActivity extends WanAndroidMvpBaseActivty implements SearchCo
                 adapter.loadMoreEnd();
             }
         }, recyclerView);
+
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            Article article = articleList.get(position);
+            WebViewArticleActivity.startArticleActivity(this, article, false);
+        });
 
         searchTx.addTextChangedListener(new TextWatcher() {
             @Override

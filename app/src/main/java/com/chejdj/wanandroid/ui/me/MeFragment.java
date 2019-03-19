@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.db.account.AccountManager;
 import com.chejdj.wanandroid.event.LoginSuccessEvent;
+import com.chejdj.wanandroid.event.UnCollectArticleSucEvent;
 import com.chejdj.wanandroid.network.bean.article.Article;
 import com.chejdj.wanandroid.network.bean.article.ArticleData;
 import com.chejdj.wanandroid.ui.base.WanAndroidBaseFragment;
@@ -92,7 +93,7 @@ public class MeFragment extends WanAndroidBaseFragment implements MeContract.Vie
             });
             adapter.setOnLoadMoreListener(() -> {
                 if (currentPage + 1 <= totalPage) {
-                    ((MePresneter) presenter).loadCollectArticleFromIn(currentPage+1);
+                    ((MePresneter) presenter).loadCollectArticleFromIn(currentPage + 1);
                 } else {
                     adapter.loadMoreEnd();
                 }
@@ -112,7 +113,7 @@ public class MeFragment extends WanAndroidBaseFragment implements MeContract.Vie
             startActivity(intent);
         } else {
             //弹窗提示退出
-            AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+            AlertDialog alertDialog = new AlertDialog.Builder(getActivity(),R.style.Theme_MaterialComponents_Light_Dialog_Alert)
                     .setCancelable(true)
                     .setNegativeButton("OK", (dialogInterface, i) -> {
                         dialogInterface.dismiss();
@@ -135,6 +136,13 @@ public class MeFragment extends WanAndroidBaseFragment implements MeContract.Vie
             EventBus.getDefault().unregister(this);
         }
         super.onDestroy();
+    }
+
+    private void refreshData() {
+        if (presenter != null) {
+            currentPage = 0;
+            ((MePresneter) presenter).loadCollectArticleFromIn(currentPage);
+        }
     }
 
     @Override
@@ -160,5 +168,10 @@ public class MeFragment extends WanAndroidBaseFragment implements MeContract.Vie
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void loginSuccessfulEvent(LoginSuccessEvent event) {
         initView();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void needRefreshView(UnCollectArticleSucEvent event) {
+        refreshData();
     }
 }

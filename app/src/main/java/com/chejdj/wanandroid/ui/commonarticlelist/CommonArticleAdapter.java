@@ -15,7 +15,6 @@ import com.chejdj.wanandroid.util.StringUtil;
 
 import java.util.List;
 
-
 import static android.support.v4.text.HtmlCompat.FROM_HTML_MODE_LEGACY;
 
 
@@ -31,7 +30,10 @@ public class CommonArticleAdapter extends BaseQuickAdapter<Article, CommonArticl
     protected void convert(CommonArticleHolder helper, Article item) {
         String title = HtmlCompat.fromHtml(item.getTitle(), FROM_HTML_MODE_LEGACY).toString();
         String author = item.getAuthor();
-        String description = HtmlCompat.fromHtml(item.getDesc(), FROM_HTML_MODE_LEGACY).toString();
+        String description = item.getDesc();
+        if (description != null && description.length() > 0) {
+            description = HtmlCompat.fromHtml(description, FROM_HTML_MODE_LEGACY).toString();
+        }
         String category = item.getSuperChapterName() + "/" + item.getChapterName();
         String tags = item.getTags() == null || item.getTags().size() == 0 ? "分类" : item.getTags().get(0).getName();
         String time = StringUtil.timeToString(item.getPublishTime());
@@ -46,7 +48,7 @@ public class CommonArticleAdapter extends BaseQuickAdapter<Article, CommonArticl
         if (description != null && description.length() > 0) {
             helper.articleDescription.setVisibility(View.VISIBLE);
             helper.articleDescription.setText(description);
-        }else{
+        } else {
             helper.articleDescription.setVisibility(View.GONE);
         }
         helper.articleTitle.setText(title);

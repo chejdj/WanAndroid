@@ -87,14 +87,7 @@ public class WebViewArticleActivity extends WanAndroidMvpBaseActivty implements 
             }
 
             @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                Log.d("WebView", "start time " + System.currentTimeMillis());
-                super.onPageStarted(view, url, favicon);
-            }
-
-            @Override
             public void onPageFinished(WebView view, String url) {
-                Log.d("WebView", "end time " + System.currentTimeMillis());
                 webSettings.setBlockNetworkImage(false);
                 super.onPageFinished(view, url);
             }

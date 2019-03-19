@@ -1,6 +1,7 @@
 package com.chejdj.wanandroid.ui.me.contract;
 
 import com.chejdj.wanandroid.db.entity.CollectArticleDB;
+import com.chejdj.wanandroid.network.bean.article.Article;
 import com.chejdj.wanandroid.network.bean.article.ArticleData;
 import com.chejdj.wanandroid.network.bean.article.ArticleDataRes;
 import com.chejdj.wanandroid.ui.base.WanAndroidBasePresenter;
@@ -21,5 +22,7 @@ public interface MeContract {
         Observable<List<CollectArticleDB>> getCollectArticleFromDB();
         Observable<ArticleDataRes> getCollectArticlesFromIn(int pageNum);
         Observable<Boolean> updateCollectArticleDB(List<CollectArticleDB> data);
+        Observable<Boolean> insertCollectArticle(Article article);
+        Observable<Boolean> deleteCollectArticle(String title,String author);
     }
 }

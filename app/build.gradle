@@ -8,8 +8,8 @@ android {
         applicationId "com.chejdj.wanandroid"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.1.0"
+        versionCode 4
+        versionName "1.2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk{
             abiFilters 'armeabi-v7a','arm64-v8a'

@@ -29,4 +29,5 @@
     <string name="login_logout">登录或退出</string>
     <string name="project_image">项目照片</string>
     <string name="please_login">请先登录，再收藏！！</string>
+    <string name="deny_permissions_warning">拒绝权限，将导致图片加载不出来！！</string>
 </resources>

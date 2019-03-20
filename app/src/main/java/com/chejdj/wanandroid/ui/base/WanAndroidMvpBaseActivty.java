@@ -16,7 +16,6 @@ public abstract class WanAndroidMvpBaseActivty extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.AppTheme);
         setContentView(getLayoutId());
         DisplayUtil.setCustomDensity(this, WanAndroidApplication.getMyApplication());
         if (getLayoutId() != R.layout.network_error) {

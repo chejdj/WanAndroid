@@ -36,6 +36,9 @@
 * [WebView性能、体验分析与优化](https://mp.weixin.qq.com/s?__biz=MjM5NjQ5MTI5OA==&mid=2651746383&idx=2&sn=9b8f8ec2adf7c13934bfb9891eae4d81&chksm=bd12a9028a652014ab8b89ff996cf7b53e8d40bfbcd64725c7c82df72515669fcf5267272ccf&scene=38#wechat_redirect)(这一块此项目后续需要改进)
 * [Android MVP架构从入门到精通-真枪实弹](https://www.wanandroid.com/blog/show/2440)
 * [你真的会用Retrofit2吗?Retrofit2完全教程](https://www.jianshu.com/p/308f3c54abdd)  
+#### 版本更新说明  
+v1.2.0 修改Android6.0动态权限申请  
+v1.1.0 初始版本
 #### 项目一览  
 ![启动页](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/start.png?token=AQ4MyR7l6VVBBAtmu58KP5JDaqCvBeeuks5cmY9GwA%3D%3D)![首页](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/home.png?token=AQ4MyRfQ4zg_fKBxyoT20J_lbKqK5yA1ks5cmY9fwA%3D%3D)![知识体系](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/knowledgeArch.png?token=AQ4MyeEP5r7eQBbuzhnjY47bZ4TtVG7cks5cmY97wA%3D%3D)  
 
@@ -45,8 +48,8 @@
 
 ![搜索](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/search.png?token=AQ4MySH6FlcA90BGrtyjntteyjqyn54hks5cmZBtwA%3D%3D)![文章](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/article.png?token=AQ4MyZ4y36FW7ccDsmyNSgHvBz7Ye3QRks5cmZCFwA%3D%3D)  
 #### 项目资源  
-1. [APP下载地址](https://github.com/chejdj/WanAndroid/releases/download/1.1.0/WanAndroid.apk)，二维码  
-![二维码](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/apk_download.png?token=AQ4MyetxedPcdCiFzSMyeatEu1ELmr3Xks5cmegGwA%3D%3D)  
+1. [APP下载地址](https://github.com/chejdj/WanAndroid/releases/download/1.2.0/app-release.apk)，二维码  
+![二维码](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/apk_download.png)  
 2. 项目地址: https://github.com/chejdj/WanAndroid
 
 

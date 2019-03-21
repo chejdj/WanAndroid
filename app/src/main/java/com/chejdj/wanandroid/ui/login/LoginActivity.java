@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.event.LoginSuccessEvent;
-import com.chejdj.wanandroid.ui.base.WanAndroidMvpBaseActivty;
+import com.chejdj.wanandroid.ui.base.WanAndroidBaseActivty;
 import com.chejdj.wanandroid.ui.login.contract.LoginContract;
 import com.chejdj.wanandroid.ui.login.presenter.LoginPresenter;
 import com.chejdj.wanandroid.ui.main.MainActivity;
@@ -19,7 +19,7 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class LoginActivity extends WanAndroidMvpBaseActivty implements LoginContract.View {
+public class LoginActivity extends WanAndroidBaseActivty implements LoginContract.View {
     @BindView(R.id.username)
     EditText usernameET;
     @BindView(R.id.password)

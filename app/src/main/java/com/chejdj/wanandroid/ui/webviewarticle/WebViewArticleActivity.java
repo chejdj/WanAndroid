@@ -2,9 +2,7 @@ package com.chejdj.wanandroid.ui.webviewarticle;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -15,7 +13,7 @@ import android.widget.Toast;
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.db.account.AccountManager;
 import com.chejdj.wanandroid.network.bean.article.Article;
-import com.chejdj.wanandroid.ui.base.WanAndroidMvpBaseActivty;
+import com.chejdj.wanandroid.ui.base.WanAndroidBaseActivty;
 import com.chejdj.wanandroid.ui.webviewarticle.contract.WebViewArticleContract;
 import com.chejdj.wanandroid.ui.webviewarticle.presenter.WebViewArticlePresenter;
 import com.chejdj.wanandroid.util.NetUtils;
@@ -28,7 +26,7 @@ import butterknife.OnClick;
 
 //从首页进来的，都默认为未收藏状态(因为没有这个接口，查询是否收藏)
 //从收藏页过来的，都是收藏状态
-public class WebViewArticleActivity extends WanAndroidMvpBaseActivty implements WebViewArticleContract.View {
+public class WebViewArticleActivity extends WanAndroidBaseActivty implements WebViewArticleContract.View {
     private static final String ARTICLE_NAME = "article";
     private static final String COLLECT_STATE = "collect_state";
     @BindView(R.id.articleToolbar)

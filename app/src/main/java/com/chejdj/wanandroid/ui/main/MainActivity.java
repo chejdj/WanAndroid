@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.chejdj.wanandroid.R;
-import com.chejdj.wanandroid.ui.base.WanAndroidMvpBaseActivty;
+import com.chejdj.wanandroid.ui.base.WanAndroidBaseActivty;
 import com.chejdj.wanandroid.ui.home.HomeFragment;
 import com.chejdj.wanandroid.ui.knowledgehierarchy.KnowledgeHierFragment;
 import com.chejdj.wanandroid.ui.me.MeFragment;
@@ -17,7 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class MainActivity extends WanAndroidMvpBaseActivty {
+public class MainActivity extends WanAndroidBaseActivty {
 
     @BindView(R.id.navigationView)
     BottomNavigationView bottomNavigationView;

@@ -10,7 +10,7 @@ import com.chejdj.wanandroid.util.DisplayUtil;
 
 import butterknife.ButterKnife;
 
-public abstract class WanAndroidMvpBaseActivty extends AppCompatActivity {
+public abstract class WanAndroidBaseActivty extends AppCompatActivity {
     public WanAndroidBasePresenter presenter = null;
 
     @Override

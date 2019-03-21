@@ -37,6 +37,7 @@
 * [Android MVP架构从入门到精通-真枪实弹](https://www.wanandroid.com/blog/show/2440)
 * [你真的会用Retrofit2吗?Retrofit2完全教程](https://www.jianshu.com/p/308f3c54abdd)  
 #### 版本更新说明  
+v1.3.0 修改首页Frament之间的切换方式以及FragmentStatePagerAdapter的Bug    
 v1.2.0 修改Android6.0动态权限申请  
 v1.1.0 初始版本
 #### 项目一览  

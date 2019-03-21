@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.chejdj.wanandroid.ui.widget.CustomViewPager
-        android:id="@+id/viewPager"
+    <FrameLayout
+        android:id="@+id/mainContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/navigationView" />

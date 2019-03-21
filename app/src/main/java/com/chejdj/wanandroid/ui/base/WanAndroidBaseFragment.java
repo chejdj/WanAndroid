@@ -23,6 +23,7 @@ public abstract class WanAndroidBaseFragment extends Fragment {
         if (rootView == null) {
             rootView = inflater.inflate(getLayoutId(), container, false);
         }
+        ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -30,13 +31,8 @@ public abstract class WanAndroidBaseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (getLayoutId() != R.layout.network_error) {
-            initBind(view);
             initView();
         }
-    }
-
-    private void initBind(View view) {
-        ButterKnife.bind(this, view);
     }
 
     @Override

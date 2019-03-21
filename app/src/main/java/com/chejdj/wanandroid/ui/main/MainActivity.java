@@ -2,6 +2,7 @@ package com.chejdj.wanandroid.ui.main;
 
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.ui.base.WanAndroidMvpBaseActivty;
@@ -10,7 +11,6 @@ import com.chejdj.wanandroid.ui.knowledgehierarchy.KnowledgeHierFragment;
 import com.chejdj.wanandroid.ui.me.MeFragment;
 import com.chejdj.wanandroid.ui.project.ProjectFragment;
 import com.chejdj.wanandroid.ui.wechatofficalaccounts.WechatOfficalFragment;
-import com.chejdj.wanandroid.ui.widget.CustomViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +21,8 @@ public class MainActivity extends WanAndroidMvpBaseActivty {
 
     @BindView(R.id.navigationView)
     BottomNavigationView bottomNavigationView;
-    @BindView(R.id.viewPager)
-    CustomViewPager viewPager;
-    private int currentPosition = 0;
+    private List<Fragment> fragmentList;
+    private int lastFragment;
 
     @Override
     protected int getLayoutId() {
@@ -32,40 +31,41 @@ public class MainActivity extends WanAndroidMvpBaseActivty {
 
     @Override
     protected void initView() {
-        viewPager.setIsScroll(false);
-        viewPager.setAdapter(new PagerFragmentAdapter(getFragments(),getSupportFragmentManager()));
-        viewPager.setCurrentItem(0);
+        initFragments();
+        lastFragment = 0;
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer, fragmentList.get(lastFragment))
+                .show(fragmentList.get(lastFragment)).commit();
         bottomNavigationView.setLabelVisibilityMode(1);
         bottomNavigationView.setOnNavigationItemSelectedListener((menuItem) -> {
             switch (menuItem.getItemId()) {
                 case R.id.menu_home:
-                    if (currentPosition != 0) {
-                        currentPosition = 0;
-                        viewPager.setCurrentItem(currentPosition);
+                    if (lastFragment != 0) {
+                        switchFragment(lastFragment, 0);
+                        lastFragment = 0;
                     }
                     break;
                 case R.id.menu_knowledge_hierarchy:
-                    if (currentPosition != 1) {
-                        currentPosition = 1;
-                        viewPager.setCurrentItem(currentPosition);
+                    if (lastFragment != 1) {
+                        switchFragment(lastFragment, 1);
+                        lastFragment = 1;
                     }
                     break;
                 case R.id.meun_wechat_sub:
-                    if(currentPosition !=2){
-                        currentPosition=2;
-                        viewPager.setCurrentItem(currentPosition);
+                    if (lastFragment != 2) {
+                        switchFragment(lastFragment, 2);
+                        lastFragment = 2;
                     }
                     break;
                 case R.id.menu_project:
-                    if (currentPosition != 3) {
-                        currentPosition = 3;
-                        viewPager.setCurrentItem(currentPosition);
+                    if (lastFragment != 3) {
+                        switchFragment(lastFragment, 3);
+                        lastFragment = 3;
                     }
                     break;
                 case R.id.menu_me:
-                    if (currentPosition != 4) {
-                        currentPosition = 4;
-                        viewPager.setCurrentItem(currentPosition);
+                    if (lastFragment != 4) {
+                        switchFragment(lastFragment, 4);
+                        lastFragment = 4;
                     }
                     break;
                 default:
@@ -73,17 +73,24 @@ public class MainActivity extends WanAndroidMvpBaseActivty {
             }
             return true;
         });
-        viewPager.setCurrentItem(currentPosition);
     }
 
-    private List<Fragment> getFragments() {
-        List<Fragment> fragmentList = new ArrayList<>();
+    private void initFragments() {
+        fragmentList = new ArrayList<>();
         fragmentList.add(new HomeFragment());
         fragmentList.add(new KnowledgeHierFragment());
         fragmentList.add(new WechatOfficalFragment());
         fragmentList.add(new ProjectFragment());
         fragmentList.add(new MeFragment());
-        return fragmentList;
+    }
+
+    private void switchFragment(int lastFragment, int currentIndex) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.hide(fragmentList.get(lastFragment));
+        if (!fragmentList.get(currentIndex).isAdded()) {
+            transaction.add(R.id.mainContainer, fragmentList.get(currentIndex));
+        }
+        transaction.show(fragmentList.get(currentIndex)).commitNowAllowingStateLoss();
     }
 
 }

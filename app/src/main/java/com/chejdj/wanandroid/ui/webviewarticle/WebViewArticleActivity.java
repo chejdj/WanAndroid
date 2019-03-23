@@ -2,6 +2,7 @@ package com.chejdj.wanandroid.ui.webviewarticle;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.text.HtmlCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.webkit.WebResourceRequest;
@@ -22,6 +23,8 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static android.support.v4.text.HtmlCompat.FROM_HTML_MODE_LEGACY;
 
 
 //从首页进来的，都默认为未收藏状态(因为没有这个接口，查询是否收藏)
@@ -58,7 +61,7 @@ public class WebViewArticleActivity extends WanAndroidBaseActivty implements Web
             collectButton.setIconDrawable(getDrawable(R.drawable.collected));
         }
 
-        toolbar.setTitle(article.getTitle());
+        toolbar.setTitle(HtmlCompat.fromHtml(article.getTitle(), FROM_HTML_MODE_LEGACY).toString());
         toolbar.setNavigationOnClickListener(view -> finish());
         initWebView();
 

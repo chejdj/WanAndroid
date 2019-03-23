@@ -72,19 +72,15 @@ public class CommonArticleListFragment extends WanAndroidBaseFragment implements
         recyclerView.setAdapter(adapter);
 
         delayHandler = new WeakHandler((Message msg) -> {
-            currentPage = 0;
-            startPresenterGetData(currentPage);
-            swipeRefreshLayout.setRefreshing(false);
+            if (presenter != null) {
+                currentPage = 0;
+                startPresenterGetData(currentPage);
+                swipeRefreshLayout.setRefreshing(false);
+            }
             return true;
         });
         swipeRefreshLayout.setOnRefreshListener(() -> delayHandler.sendMessageDelayed(Message.obtain(), 2000));
         startPresenterGetData(currentPage);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        currentPage = 0;
     }
 
     private void startPresenterGetData(int pageNum) {

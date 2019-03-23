@@ -72,11 +72,9 @@ public class CommonArticleListFragment extends WanAndroidBaseFragment implements
         recyclerView.setAdapter(adapter);
 
         delayHandler = new WeakHandler((Message msg) -> {
-            if (presenter != null) {
-                currentPage = 0;
-                startPresenterGetData(currentPage);
-                swipeRefreshLayout.setRefreshing(false);
-            }
+            currentPage = 0;
+            startPresenterGetData(currentPage);
+            swipeRefreshLayout.setRefreshing(false);
             return true;
         });
         swipeRefreshLayout.setOnRefreshListener(() -> delayHandler.sendMessageDelayed(Message.obtain(), 2000));
@@ -84,18 +82,20 @@ public class CommonArticleListFragment extends WanAndroidBaseFragment implements
     }
 
     private void startPresenterGetData(int pageNum) {
-        switch (type) {
-            case 1:
-                ((CommonArticleListPresenter) presenter).getArticlesFromKnowledges(pageNum, cid);
-                break;
-            case 2:
-                ((CommonArticleListPresenter) presenter).getArticlesFromProject(pageNum, cid);
-                break;
-            case 3:
-                ((CommonArticleListPresenter) presenter).getArticlesFromWechatChapter(pageNum, cid);
-                break;
-            default:
-                Log.e("common", "error type");
+        if (presenter != null) {
+            switch (type) {
+                case 1:
+                    ((CommonArticleListPresenter) presenter).getArticlesFromKnowledges(pageNum, cid);
+                    break;
+                case 2:
+                    ((CommonArticleListPresenter) presenter).getArticlesFromProject(pageNum, cid);
+                    break;
+                case 3:
+                    ((CommonArticleListPresenter) presenter).getArticlesFromWechatChapter(pageNum, cid);
+                    break;
+                default:
+                    Log.e("common", "error type");
+            }
         }
     }
 

@@ -37,6 +37,7 @@
 * [Android MVP架构从入门到精通-真枪实弹](https://www.wanandroid.com/blog/show/2440)
 * [你真的会用Retrofit2吗?Retrofit2完全教程](https://www.jianshu.com/p/308f3c54abdd)  
 #### 版本更新说明  
+v1.4.2 更新部分界面，以及无网络及网络差的友好显示，及Bugly上面的Bug  
 v1.3.0 修改首页Frament之间的切换方式以及FragmentStatePagerAdapter的Bug    
 v1.2.0 修改Android6.0动态权限申请  
 v1.1.0 初始版本
@@ -51,6 +52,7 @@ v1.1.0 初始版本
 #### 项目资源  
 1. [APP下载地址](https://github.com/chejdj/WanAndroid/releases/download/1.2.0/app-release.apk)，二维码  
 ![二维码](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/apk_download.png)  
+(二维码的APK永远都是最新的，release上的重大更新才发版)  
 2. 项目地址: https://github.com/chejdj/WanAndroid
 
 

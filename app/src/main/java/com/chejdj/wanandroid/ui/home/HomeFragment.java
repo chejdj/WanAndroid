@@ -8,7 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.article.Article;
@@ -35,6 +38,10 @@ public class HomeFragment extends WanAndroidBaseFragment implements HomeContract
     RecyclerView recyclerView;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.networkError)
+    RelativeLayout networkError;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
     private List<Article> articleList;
     private List<HomeBanner> bannerList;
     private Banner homeBanner;
@@ -128,12 +135,26 @@ public class HomeFragment extends WanAndroidBaseFragment implements HomeContract
     //获取banner数据
     @Override
     public void showBanner(List<HomeBanner> images) {
+        if (networkError.getVisibility() == View.VISIBLE) {
+            networkError.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+        }
+        if (refreshLayout.getVisibility() == View.GONE) {
+            refreshLayout.setVisibility(View.VISIBLE);
+        }
         homeBanner.update(images);
     }
 
     //获取到Articles
     @Override
     public void showArticles(ArticleData articleData) {
+        if (networkError.getVisibility() == View.VISIBLE) {
+            networkError.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+        }
+        if (refreshLayout.getVisibility() == View.GONE) {
+            refreshLayout.setVisibility(View.VISIBLE);
+        }
         if (totalPage == 0) {
             totalPage = articleData.getPageCount();
         }
@@ -142,11 +163,27 @@ public class HomeFragment extends WanAndroidBaseFragment implements HomeContract
         commonArticleAdapter.loadMoreComplete();
     }
 
+    @Override
+    public void networkError() {
+        if (refreshLayout.getVisibility() == View.VISIBLE) {
+            refreshLayout.setVisibility(View.GONE);
+        }
+        if (networkError.getVisibility() == View.GONE) {
+            networkError.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick(R.id.reloadBtn)
+    public void reloadData() {
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        ((HomePresenter) presenter).start();
+    }
+
     @OnClick(R.id.home_search)
     public void intentToSearchActivity() {
         Intent intent = new Intent(getActivity(), SearchActivity.class);
         startActivity(intent);
     }
-
-
 }

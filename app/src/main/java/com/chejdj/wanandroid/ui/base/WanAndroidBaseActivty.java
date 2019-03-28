@@ -18,10 +18,8 @@ public abstract class WanAndroidBaseActivty extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         DisplayUtil.setCustomDensity(this, WanAndroidApplication.getMyApplication());
-        if (getLayoutId() != R.layout.network_error) {
-            initBind();
-            initView();
-        }
+        initBind();
+        initView();
     }
 
     @Override

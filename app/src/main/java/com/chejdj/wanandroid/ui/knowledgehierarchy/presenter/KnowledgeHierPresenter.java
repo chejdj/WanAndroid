@@ -1,5 +1,7 @@
 package com.chejdj.wanandroid.ui.knowledgehierarchy.presenter;
 
+import android.util.Log;
+
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectoryRes;
 import com.chejdj.wanandroid.ui.knowledgehierarchy.contract.KnowledgeHierContract;
 import com.chejdj.wanandroid.ui.knowledgehierarchy.model.KnowledgeHierModel;
@@ -13,6 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 public class KnowledgeHierPresenter implements KnowledgeHierContract.Presenter {
     private KnowledgeHierContract.View view;
     private KnowledgeHierContract.Model model;
+    private static final String TAG = "KnowledgeHierPresenter";
 
     public KnowledgeHierPresenter(KnowledgeHierContract.View view) {
         this.view = view;
@@ -42,7 +45,10 @@ public class KnowledgeHierPresenter implements KnowledgeHierContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e(TAG, "getDetailKnowledgeHier() errors : " + e.getMessage());
+                        if (view != null) {
+                            view.networkError();
+                        }
                     }
 
                     @Override

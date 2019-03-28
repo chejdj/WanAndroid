@@ -18,6 +18,7 @@ public interface HomeContract {
         void showBanner(List<HomeBanner> images);
 
         void showArticles(ArticleData articleData);
+        void networkError();
     }
 
     interface Presenter extends WanAndroidBasePresenter {

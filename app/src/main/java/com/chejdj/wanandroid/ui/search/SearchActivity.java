@@ -7,6 +7,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chejdj.wanandroid.R;
@@ -18,7 +20,6 @@ import com.chejdj.wanandroid.ui.commonarticlelist.CommonArticleAdapter;
 import com.chejdj.wanandroid.ui.search.contract.SearchContract;
 import com.chejdj.wanandroid.ui.search.presenter.SearchPresenter;
 import com.chejdj.wanandroid.ui.webviewarticle.WebViewArticleActivity;
-import com.chejdj.wanandroid.util.NetUtils;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -38,6 +39,10 @@ public class SearchActivity extends WanAndroidBaseActivty implements SearchContr
     TagFlowLayout tagFlowLayout;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.networkError)
+    RelativeLayout networkError;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     private List<HotKey> hotKeyList;
     private List<Article> articleList;
@@ -49,9 +54,6 @@ public class SearchActivity extends WanAndroidBaseActivty implements SearchContr
 
     @Override
     protected int getLayoutId() {
-        if (NetUtils.getNetWorkState() < 0) {
-            return R.layout.network_error;
-        }
         return R.layout.activity_search;
     }
 
@@ -132,12 +134,30 @@ public class SearchActivity extends WanAndroidBaseActivty implements SearchContr
 
     @Override
     public void updateHotKeys(List<HotKey> keyList) {
+        if (recyclerView.getVisibility() == View.VISIBLE) {
+            recyclerView.setVisibility(View.GONE);
+            currentPage = 0;
+        }
+        if (networkError.getVisibility() == View.VISIBLE) {
+            networkError.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+        }
+        if (hot_searchTx.getVisibility() == View.GONE) {
+            hot_searchTx.setVisibility(View.VISIBLE);
+        }
+        if (tagFlowLayout.getVisibility() == View.GONE) {
+            tagFlowLayout.setVisibility(View.VISIBLE);
+        }
         hotKeyList.addAll(keyList);
         tagFlowLayout.getAdapter().notifyDataChanged();
     }
 
     @Override
     public void updateSearchArticles(ArticleData articleData) {
+        if (networkError.getVisibility() == View.VISIBLE) {
+            networkError.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+        }
         if (recyclerView.getVisibility() == View.GONE) {
             recyclerView.setVisibility(View.VISIBLE);
         }
@@ -163,9 +183,41 @@ public class SearchActivity extends WanAndroidBaseActivty implements SearchContr
             recyclerView.setVisibility(View.GONE);
             currentPage = 0;
         }
+        if (networkError.getVisibility() == View.VISIBLE) {
+            networkError.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+        }
+        if (hot_searchTx.getVisibility() == View.GONE) {
+            hot_searchTx.setVisibility(View.VISIBLE);
+        }
         if (tagFlowLayout.getVisibility() == View.GONE) {
             tagFlowLayout.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void networkError() {
+        if (recyclerView.getVisibility() == View.VISIBLE) {
+            recyclerView.setVisibility(View.GONE);
+            currentPage = 0;
+        }
+        if (tagFlowLayout.getVisibility() == View.VISIBLE) {
+            tagFlowLayout.setVisibility(View.GONE);
+        }
+        if (hot_searchTx.getVisibility() == View.VISIBLE) {
+            hot_searchTx.setVisibility(View.GONE);
+        }
+        if (networkError.getVisibility() == View.GONE) {
+            networkError.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick(R.id.reloadBtn)
+    public void reloadData() {
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        ((SearchPresenter) presenter).getHotKeys();
     }
 
     @OnClick(R.id.back)

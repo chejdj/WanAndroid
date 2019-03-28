@@ -8,6 +8,8 @@ import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirector
 import com.chejdj.wanandroid.network.bean.login.LoginStateBean;
 import com.chejdj.wanandroid.network.cookie.CookieManager;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -24,7 +26,7 @@ public class HttpService {
     }
 
     private HttpService() {
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().connectTimeout(3, TimeUnit.SECONDS)
                 .cookieJar(new CookieManager()).build();
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl)
                 .client(okHttpClient)
@@ -127,7 +129,7 @@ public class HttpService {
     取消收藏文章
      */
     public Observable<ArticleDataRes> cancelCollectArticle(int articleId) {
-        return apiService.cancelCollectedArticle(articleId,-1);
+        return apiService.cancelCollectedArticle(articleId, -1);
     }
 
     /*

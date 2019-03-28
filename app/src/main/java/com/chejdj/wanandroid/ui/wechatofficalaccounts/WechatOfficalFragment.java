@@ -3,6 +3,9 @@ package com.chejdj.wanandroid.ui.wechatofficalaccounts;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectory;
@@ -11,12 +14,12 @@ import com.chejdj.wanandroid.ui.commonarticlelist.CommonArticleListFragment;
 import com.chejdj.wanandroid.ui.commonarticlelist.CommonPagerFragmentAdapter;
 import com.chejdj.wanandroid.ui.wechatofficalaccounts.contract.WeChatOfficalContractor;
 import com.chejdj.wanandroid.ui.wechatofficalaccounts.presenter.WechatOfficalPresenter;
-import com.chejdj.wanandroid.util.NetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 public class WechatOfficalFragment extends WanAndroidBaseFragment implements WeChatOfficalContractor.View {
@@ -24,15 +27,16 @@ public class WechatOfficalFragment extends WanAndroidBaseFragment implements WeC
     ViewPager viewPager;
     @BindView(R.id.tabLayout)
     TabLayout tabLayout;
+    @BindView(R.id.networkError)
+    RelativeLayout networkError;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
     private List<String> subTitles;
     private List<Fragment> fragmentList;
     private static final int TYPE_COMMON_LIST_FRAGMENT = 3;//代表和CommonArticleListFragment的协议
 
     @Override
     protected int getLayoutId() {
-        if (NetUtils.getNetWorkState() < 0) {
-            return R.layout.network_error;
-        }
         return R.layout.fragment_wechat_sub;
     }
 
@@ -47,6 +51,17 @@ public class WechatOfficalFragment extends WanAndroidBaseFragment implements WeC
 
     @Override
     public void updateWechatChapter(List<PrimaryArticleDirectory> data) {
+        if (viewPager.getVisibility() == View.GONE) {
+            viewPager.setVisibility(View.VISIBLE);
+        }
+        if (tabLayout.getVisibility() == View.GONE) {
+            tabLayout.setVisibility(View.VISIBLE);
+        }
+        if (networkError.getVisibility() == View.VISIBLE) {
+            networkError.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+        }
+
         CommonPagerFragmentAdapter adapter = new CommonPagerFragmentAdapter(subTitles, fragmentList, getChildFragmentManager());
         for (PrimaryArticleDirectory projectDirectory : data) {
             subTitles.add(projectDirectory.getName());
@@ -57,5 +72,26 @@ public class WechatOfficalFragment extends WanAndroidBaseFragment implements WeC
         viewPager.setCurrentItem(0);
         tabLayout.setupWithViewPager(viewPager);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void networkError() {
+        if (viewPager.getVisibility() == View.VISIBLE) {
+            viewPager.setVisibility(View.GONE);
+        }
+        if (tabLayout.getVisibility() == View.VISIBLE) {
+            tabLayout.setVisibility(View.GONE);
+        }
+        if (networkError.getVisibility() == View.GONE) {
+            networkError.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick(R.id.reloadBtn)
+    public void reloadData() {
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        ((WechatOfficalPresenter) presenter).getWechatChapters();
     }
 }

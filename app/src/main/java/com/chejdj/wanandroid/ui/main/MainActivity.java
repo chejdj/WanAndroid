@@ -92,5 +92,4 @@ public class MainActivity extends WanAndroidBaseActivty {
         }
         transaction.show(fragmentList.get(currentIndex)).commitNowAllowingStateLoss();
     }
-
 }

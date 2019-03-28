@@ -1,5 +1,7 @@
 package com.chejdj.wanandroid.ui.project.presenter;
 
+import android.util.Log;
+
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectoryRes;
 import com.chejdj.wanandroid.ui.project.contract.ProjectContract;
 import com.chejdj.wanandroid.ui.project.model.ProjectModel;
@@ -13,6 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ProjectPresenter implements ProjectContract.Presenter {
     private ProjectContract.View view;
     private ProjectContract.Model model;
+    private static final String TAG = "ProjectPresenter";
 
     public ProjectPresenter(ProjectContract.View view) {
         this.view = view;
@@ -41,6 +44,10 @@ public class ProjectPresenter implements ProjectContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.e(TAG, "getProjectDirectory() errors" + e.getMessage());
+                        if (view != null) {
+                            view.networkError();
+                        }
                     }
 
                     @Override

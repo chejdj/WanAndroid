@@ -31,81 +31,82 @@ public class MePresneter implements MeContract.Presenter {
 
     @Override
     public void loadCollectArticleFromIn(int pageNum) {
-        if (NetUtils.getNetWorkState() >= 0) {
-            model.getCollectArticlesFromIn(pageNum)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnNext((ArticleDataRes articleDataRes) -> {
+        model.getCollectArticlesFromIn(pageNum)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext((ArticleDataRes articleDataRes) -> {
+                    if (view != null) {
+                        view.showCollectArticle(articleDataRes.getData());
+                    }
+                })
+                .map((ArticleDataRes articleDataRes) -> {
+                    List<Article> articleList = articleDataRes.getData().getListData();
+                    List<CollectArticleDB> collectArticleDBS = new ArrayList<>();
+                    for (Article article : articleList) {
+                        CollectArticleDB db = new CollectArticleDB(article);
+                        collectArticleDBS.add(db);
+                    }
+                    return collectArticleDBS;
+                })
+                .flatMap((List<CollectArticleDB> collectArticleDBS) -> model.updateCollectArticleDB(collectArticleDBS))
+                .subscribe(new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "loadCollectArticleFromIn() errors" + e.getMessage());
+                        loadCollectArticleFromDB();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void loadCollectArticleFromDB() {
+        model.getCollectArticleFromDB()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<CollectArticleDB>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<CollectArticleDB> collectArticleDBS) {
+                        ArticleData articleData = new ArticleData();
+                        articleData.setPageCount(0);
+                        articleData.setCurPage(0);
+                        for (CollectArticleDB db : collectArticleDBS) {
+                            Article article = new Article(db);
+                            articleData.getListData().add(article);
+                        }
                         if (view != null) {
-                            view.showCollectArticle(articleDataRes.getData());
+                            view.showCollectArticle(articleData);
                         }
-                    })
-                    .map((ArticleDataRes articleDataRes) -> {
-                        List<Article> articleList = articleDataRes.getData().getListData();
-                        List<CollectArticleDB> collectArticleDBS = new ArrayList<>();
-                        for (Article article : articleList) {
-                            CollectArticleDB db = new CollectArticleDB(article);
-                            collectArticleDBS.add(db);
-                        }
-                        return collectArticleDBS;
-                    }).flatMap((List<CollectArticleDB> collectArticleDBS) -> {
-                return model.updateCollectArticleDB(collectArticleDBS);
-            }).subscribe(new Observer<Boolean>() {
-                @Override
-                public void onSubscribe(Disposable d) {
+                    }
 
-                }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "loadCollectArticleFromDB() errors :" + e.getMessage());
+                    }
 
-                @Override
-                public void onNext(Boolean aBoolean) {
+                    @Override
+                    public void onComplete() {
 
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    Log.e(TAG, "update the db error" + e.getMessage());
-                }
-
-                @Override
-                public void onComplete() {
-
-                }
-            });
-        } else {
-            model.getCollectArticleFromDB()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<List<CollectArticleDB>>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-
-                        }
-
-                        @Override
-                        public void onNext(List<CollectArticleDB> collectArticleDBS) {
-                            ArticleData articleData = new ArticleData();
-                            articleData.setPageCount(0);
-                            articleData.setCurPage(0);
-                            for (CollectArticleDB db : collectArticleDBS) {
-                                Article article = new Article(db);
-                                articleData.getListData().add(article);
-                            }
-                            if (view != null) {
-                                view.showCollectArticle(articleData);
-                            }
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            Log.e(TAG, e.getMessage());
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
-        }
+                    }
+                });
     }
 
     @Override

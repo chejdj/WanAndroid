@@ -7,12 +7,10 @@ import com.chejdj.wanandroid.network.bean.article.ArticleDataRes;
 import com.chejdj.wanandroid.ui.webviewarticle.contract.WebViewArticleContract;
 import com.chejdj.wanandroid.ui.webviewarticle.model.WebViewArticleModel;
 
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -115,7 +113,36 @@ public class WebViewArticlePresenter implements WebViewArticleContract.Presenter
 
     @Override
     public void isCollected(String title, String author) {
-        //TODO 看后面是否提供接口，判断文章是否收藏，目前没有提供
+        model.isExistsCollectArticle(title, author)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        if (view != null) {
+                            if (aBoolean) {
+                                view.collectState(aBoolean);
+                            } else {
+                                view.cancelCollectState(aBoolean);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override

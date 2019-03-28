@@ -9,6 +9,7 @@ import io.reactivex.Observable;
 public interface KnowledgeHierContract {
     interface View{
         void updateDetailKnowledgeHier(PrimaryArticleDirectoryRes directory);
+        void networkError();
     }
     interface Presenter extends WanAndroidBasePresenter {
         void getDetailKnowledgeHier();

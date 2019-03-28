@@ -1,5 +1,7 @@
 package com.chejdj.wanandroid.ui.wechatofficalaccounts.presenter;
 
+import android.util.Log;
+
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectoryRes;
 import com.chejdj.wanandroid.ui.wechatofficalaccounts.contract.WeChatOfficalContractor;
 import com.chejdj.wanandroid.ui.wechatofficalaccounts.model.WechatOfficalModel;
@@ -12,6 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 public class WechatOfficalPresenter implements WeChatOfficalContractor.Presenter {
     private WeChatOfficalContractor.View view;
     private WeChatOfficalContractor.Model model;
+    private static final String TAG = "WechatOfficalPresenter";
 
     public WechatOfficalPresenter(WeChatOfficalContractor.View view) {
         this.view = view;
@@ -40,7 +43,10 @@ public class WechatOfficalPresenter implements WeChatOfficalContractor.Presenter
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e(TAG, "getWechatChapters() errors: " + e.getMessage());
+                        if (view != null) {
+                            view.networkError();
+                        }
                     }
 
                     @Override

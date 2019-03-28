@@ -11,6 +11,7 @@ public interface WebViewArticleContract {
     interface View {
         void collectState(boolean isCollect);
         void cancelCollectState(boolean isCancelCollect);
+        void networkError();
     }
     interface Model{
         Observable<Boolean> insertCollectArticle(Article article);

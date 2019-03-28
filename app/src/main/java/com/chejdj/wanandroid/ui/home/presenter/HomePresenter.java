@@ -12,7 +12,6 @@ import com.chejdj.wanandroid.network.bean.homepage.HomeBanner;
 import com.chejdj.wanandroid.network.bean.homepage.HomeBannerData;
 import com.chejdj.wanandroid.ui.home.contract.HomeContract;
 import com.chejdj.wanandroid.ui.home.model.HomeModel;
-import com.chejdj.wanandroid.util.NetUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,173 +39,177 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void getBannerData() {
-        if (NetUtils.getNetWorkState() >= 0) {
-            model.getBannerDataFromIn().subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnNext((HomeBannerData homeBannerData) -> {
-                        if (view != null && homeBannerData.getErrorCode() == 0) {
-                            view.showBanner(homeBannerData.getData());
-                        }
-                    })
-                    .map((HomeBannerData homeBannerData) -> {
-                        List<HomeBanner> homeBannerList = homeBannerData.getData();
-                        List<HomeBannerDB> homeBannerDBList = new ArrayList<>();
-                        for (HomeBanner homeBanner : homeBannerList) {
-                            HomeBannerDB homeBannerDB = new HomeBannerDB(homeBanner);
-                            homeBannerDBList.add(homeBannerDB);
-                        }
-                        return homeBannerDBList;
-                    })
-                    .flatMap((List<HomeBannerDB> homeBannerDBS) -> {
-                        return model.updateBannerDataDB(homeBannerDBS);
-                    })
-                    .subscribe(new Observer<Boolean>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
+        model.getBannerDataFromIn().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext((HomeBannerData homeBannerData) -> {
+                    if (view != null && homeBannerData.getErrorCode() == 0) {
+                        view.showBanner(homeBannerData.getData());
+                    }
+                })
+                .map((HomeBannerData homeBannerData) -> {
+                    List<HomeBanner> homeBannerList = homeBannerData.getData();
+                    List<HomeBannerDB> homeBannerDBList = new ArrayList<>();
+                    for (HomeBanner homeBanner : homeBannerList) {
+                        HomeBannerDB homeBannerDB = new HomeBannerDB(homeBanner);
+                        homeBannerDBList.add(homeBannerDB);
+                    }
+                    return homeBannerDBList;
+                })
+                .flatMap((List<HomeBannerDB> homeBannerDBS) -> model.updateBannerDataDB(homeBannerDBS))
+                .subscribe(new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(Boolean aBoolean) {
+                    @Override
+                    public void onNext(Boolean aBoolean) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            Log.e(TAG, "update banner error" + e.getMessage());
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "update banner error" + e.getMessage());
+                        getBannerDataFromDB();
+                    }
 
-                        @Override
-                        public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-                        }
-                    });
-        }
-        //从数据库当中获取HomeBanner数据
-        else {
-            model.getBannerDataFromDB()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .map((List<HomeBannerDB> homeBannerDBS) -> {
-                        List<HomeBanner> bannerList = new ArrayList<>();
-                        for (HomeBannerDB db : homeBannerDBS) {
-                            HomeBanner banner = new HomeBanner(db);
-                            bannerList.add(banner);
-                        }
-                        return bannerList;
-                    })
-                    .subscribe(new Observer<List<HomeBanner>>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
+                    }
+                });
+    }
 
-                        }
+    private void getBannerDataFromDB() {
+        model.getBannerDataFromDB()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map((List<HomeBannerDB> homeBannerDBS) -> {
+                    List<HomeBanner> bannerList = new ArrayList<>();
+                    for (HomeBannerDB db : homeBannerDBS) {
+                        HomeBanner banner = new HomeBanner(db);
+                        bannerList.add(banner);
+                    }
+                    return bannerList;
+                })
+                .subscribe(new Observer<List<HomeBanner>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                        @Override
-                        public void onNext(List<HomeBanner> homeBanners) {
-                            if (view != null) {
+                    }
+
+                    @Override
+                    public void onNext(List<HomeBanner> homeBanners) {
+                        if (view != null) {
+                            if (homeBanners != null && homeBanners.size() > 0) {
                                 view.showBanner(homeBanners);
+                            } else {
+                                view.networkError();
                             }
                         }
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-
+                    @Override
+                    public void onError(Throwable e) {
+                        if (view != null) {
+                            view.networkError();
                         }
+                    }
 
-                        @Override
-                        public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-                        }
-                    });
-        }
+                    }
+                });
     }
 
     @Override
     public void getArticles(int pageNums) {
-        //有网络连接的时候，从网上获取
-        if (NetUtils.getNetWorkState() >= 0) {
-            model.getArticles(pageNums).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnNext((ArticleDataRes articleDataRes) -> {
-                        if (view != null && articleDataRes.getErrorCode() == 0) {
-                            view.showArticles(articleDataRes.getData());
-                        }
-                    })
-                    .filter((ArticleDataRes articleDataRes) -> {
-                        return pageNums == 0;
-                    })
-                    .map((ArticleDataRes articleDataRes) -> {
-                        List<HomeArticleDB> homeArticleDBList = new ArrayList<>();
-                        List<Article> articleList = articleDataRes.getData().getListData();
-                        for (Article article : articleList) {
-                            HomeArticleDB homeArticleDB = new HomeArticleDB();
-                            changeToHomeArticle(homeArticleDB, article);
-                            homeArticleDBList.add(homeArticleDB);
-                        }
-                        return homeArticleDBList;
-                    })
-                    .flatMap((List<HomeArticleDB> articleList) -> {
-                        return model.updateHomeArticleDB(articleList);
-                    })
-                    .subscribe(new Observer<Boolean>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
+        model.getArticles(pageNums).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext((ArticleDataRes articleDataRes) -> {
+                    if (view != null && articleDataRes.getErrorCode() == 0) {
+                        view.showArticles(articleDataRes.getData());
+                    }
+                })
+                .filter((ArticleDataRes articleDataRes) -> pageNums == 0)
+                .map((ArticleDataRes articleDataRes) -> {
+                    List<HomeArticleDB> homeArticleDBList = new ArrayList<>();
+                    List<Article> articleList = articleDataRes.getData().getListData();
+                    for (Article article : articleList) {
+                        HomeArticleDB homeArticleDB = new HomeArticleDB();
+                        changeToHomeArticle(homeArticleDB, article);
+                        homeArticleDBList.add(homeArticleDB);
+                    }
+                    return homeArticleDBList;
+                })
+                .flatMap((List<HomeArticleDB> articleList) -> model.updateHomeArticleDB(articleList))
+                .subscribe(new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(Boolean aBoolean) {
+                    @Override
+                    public void onNext(Boolean aBoolean) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            Log.e(TAG, e.getMessage());
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "getArticles() errors : " + e.getMessage());
+                        getHomeArticleFromDB();
+                    }
 
-                        @Override
-                        public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-                        }
-                    });
-        }
-        //从数据库中获取
-        else {
-            model.getHomeArticleDB()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<List<HomeArticleDB>>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
+                    }
+                });
+    }
 
-                        }
+    private void getHomeArticleFromDB() {
+        model.getHomeArticleDB()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<HomeArticleDB>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                        @Override
-                        public void onNext(List<HomeArticleDB> articleList) {
-                            ArticleData data = new ArticleData();
-                            data.setPageCount(0);
-                            data.setCurPage(0);
-                            for (HomeArticleDB homeArticleDB : articleList) {
-                                Article article = new Article();
-                                changeToArticle(article, homeArticleDB);
-                                data.getListData().add(article);
-                            }
-                            if (view != null) {
+                    }
+
+                    @Override
+                    public void onNext(List<HomeArticleDB> articleList) {
+                        if (view != null) {
+                            if (articleList != null && articleList.size() > 0) {
+                                ArticleData data = new ArticleData();
+                                data.setPageCount(0);
+                                data.setCurPage(0);
+                                for (HomeArticleDB homeArticleDB : articleList) {
+                                    Article article = new Article();
+                                    changeToArticle(article, homeArticleDB);
+                                    data.getListData().add(article);
+                                }
                                 view.showArticles(data);
+                            } else {
+                                view.networkError();
                             }
                         }
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            Log.e(TAG, "get data from db : " + e.getMessage());
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "getHomeArticleFromDB() errors : " + e.getMessage());
+                        if (view != null) {
+                            view.networkError();
                         }
+                    }
 
-                        @Override
-                        public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-                        }
-                    });
-        }
+                    }
+                });
     }
 
     private void changeToHomeArticle(HomeArticleDB homeArticleDB, Article article) {

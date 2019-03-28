@@ -57,10 +57,6 @@ public class WebViewArticleActivity extends WanAndroidBaseActivty implements Web
         if (article == null) {
             return;
         }
-        if (collectState) {
-            collectButton.setIconDrawable(getDrawable(R.drawable.collected));
-        }
-
         toolbar.setTitle(HtmlCompat.fromHtml(article.getTitle(), FROM_HTML_MODE_LEGACY).toString());
         toolbar.setNavigationOnClickListener(view -> finish());
         initWebView();
@@ -105,8 +101,7 @@ public class WebViewArticleActivity extends WanAndroidBaseActivty implements Web
 
     @OnClick(R.id.share)
     public void shareArticle() {
-        //TODO 完善分享链接
-        Toast.makeText(this, "share successful ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "账号正在审核中，尽情期待！！", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -155,5 +150,10 @@ public class WebViewArticleActivity extends WanAndroidBaseActivty implements Web
         } else {
             Toast.makeText(this, StringUtil.getString(this, R.string.cancel_collect_fail), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void networkError() {
+        //TODO
     }
 }

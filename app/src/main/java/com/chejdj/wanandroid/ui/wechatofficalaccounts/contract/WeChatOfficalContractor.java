@@ -13,6 +13,7 @@ import io.reactivex.Observable;
 public interface WeChatOfficalContractor {
     interface View{
         void updateWechatChapter(List<PrimaryArticleDirectory> data);
+        void networkError();
     }
     interface Model{
         Observable<PrimaryArticleDirectoryRes> getWechatChapters();

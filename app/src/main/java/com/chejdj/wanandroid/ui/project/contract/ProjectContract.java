@@ -11,6 +11,7 @@ import io.reactivex.Observable;
 public interface ProjectContract {
     interface View{
         void updateProjectDirectory(List<PrimaryArticleDirectory> directories);
+        void networkError();
     }
     interface Presenter extends WanAndroidBasePresenter {
         void getProjectDirectory();

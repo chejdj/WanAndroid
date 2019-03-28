@@ -2,6 +2,9 @@ package com.chejdj.wanandroid.ui.knowledgehierarchy;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectory;
@@ -10,25 +13,26 @@ import com.chejdj.wanandroid.ui.base.WanAndroidBaseFragment;
 import com.chejdj.wanandroid.ui.knowledgehierarchy.contract.KnowledgeHierContract;
 import com.chejdj.wanandroid.ui.knowledgehierarchy.presenter.KnowledgeHierPresenter;
 import com.chejdj.wanandroid.ui.subjectarticle.SubjectArticleActivity;
-import com.chejdj.wanandroid.util.NetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 public class KnowledgeHierFragment extends WanAndroidBaseFragment implements KnowledgeHierContract.View {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.networkError)
+    RelativeLayout networkError;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
     private List<PrimaryArticleDirectory> articleDirectoryList;
     private KonwledgeHierAdapter adapter;
 
     @Override
     protected int getLayoutId() {
-        if(NetUtils.getNetWorkState()<0){
-            return R.layout.network_error;
-        }
         return R.layout.fragment_knowledge_hier;
     }
 
@@ -49,7 +53,32 @@ public class KnowledgeHierFragment extends WanAndroidBaseFragment implements Kno
 
     @Override
     public void updateDetailKnowledgeHier(PrimaryArticleDirectoryRes directory) {
+        if (recyclerView.getVisibility() == View.GONE) {
+            recyclerView.setVisibility(View.VISIBLE);
+        }
+        if (networkError.getVisibility() == View.VISIBLE) {
+            networkError.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+        }
         adapter.addData(directory.getData());
         adapter.loadMoreComplete();
+    }
+
+    @Override
+    public void networkError() {
+        if (recyclerView.getVisibility() == View.VISIBLE) {
+            recyclerView.setVisibility(View.GONE);
+        }
+        if (networkError.getVisibility() == View.GONE) {
+            networkError.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick(R.id.reloadBtn)
+    public void reloadData() {
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        ((KnowledgeHierPresenter) presenter).getDetailKnowledgeHier();
     }
 }

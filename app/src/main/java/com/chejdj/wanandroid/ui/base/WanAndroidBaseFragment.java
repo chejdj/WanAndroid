@@ -23,9 +23,7 @@ public abstract class WanAndroidBaseFragment extends Fragment {
         if (rootView == null) {
             rootView = inflater.inflate(getLayoutId(), container, false);
         }
-        if (getLayoutId() != R.layout.network_error) {
-            ButterKnife.bind(this, rootView);
-        }
+        ButterKnife.bind(this, rootView);
         return rootView;
     }
 

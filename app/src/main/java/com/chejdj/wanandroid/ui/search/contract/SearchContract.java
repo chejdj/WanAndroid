@@ -16,6 +16,7 @@ public interface SearchContract {
         void updateHotKeys(List<HotKey> keyList);
         void updateSearchArticles(ArticleData articleData);
         void showHotKeys();
+        void networkError();
     }
     interface Presenter extends WanAndroidBasePresenter {
         void getHotKeys();

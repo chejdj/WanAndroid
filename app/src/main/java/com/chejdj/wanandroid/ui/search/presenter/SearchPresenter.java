@@ -1,5 +1,7 @@
 package com.chejdj.wanandroid.ui.search.presenter;
 
+import android.util.Log;
+
 import com.chejdj.wanandroid.network.bean.article.ArticleDataRes;
 import com.chejdj.wanandroid.network.bean.hotkey.HotKeyData;
 import com.chejdj.wanandroid.ui.search.contract.SearchContract;
@@ -13,6 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SearchPresenter implements SearchContract.Presenter {
     private SearchContract.Model model;
     private SearchContract.View view;
+    public static final String TAG = "SearchPresenter";
 
     public SearchPresenter(SearchContract.View view) {
         this.view = view;
@@ -42,7 +45,10 @@ public class SearchPresenter implements SearchContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e(TAG, "getHotKeys() errors : " + e.getMessage());
+                        if (view != null) {
+                            view.networkError();
+                        }
                     }
 
                     @Override
@@ -77,7 +83,10 @@ public class SearchPresenter implements SearchContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e(TAG, "getSearchArticles() errors : " + e.getMessage());
+                        if (view != null) {
+                            view.networkError();
+                        }
                     }
 
                     @Override

@@ -41,9 +41,7 @@ public class WebViewArticlePresenter implements WebViewArticleContract.Presenter
                         }
                     }
                 })
-                .flatMap((ArticleDataRes articleDataRes) -> {
-                    return model.insertCollectArticle(article);
-                })
+                .flatMap((ArticleDataRes articleDataRes) -> model.insertCollectArticle(article))
                 .subscribe(new Observer<Boolean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -78,16 +76,8 @@ public class WebViewArticlePresenter implements WebViewArticleContract.Presenter
                         view.cancelCollectState(true);
                     }
                 })
-                .doOnError(new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        String message = throwable.getMessage();
-                        Log.e(TAG, throwable.getMessage());
-                    }
-                })
-                .flatMap((ArticleDataRes articleDataRes) -> {
-                    return model.deleteCollectArticle(article.getTitle(), article.getAuthor());
-                })
+                .flatMap((ArticleDataRes articleDataRes) ->
+                     model.deleteCollectArticle(article.getTitle(), article.getAuthor()))
                 .subscribe(new Observer<Boolean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -128,7 +118,7 @@ public class WebViewArticlePresenter implements WebViewArticleContract.Presenter
                             if (aBoolean) {
                                 view.collectState(aBoolean);
                             } else {
-                                view.cancelCollectState(aBoolean);
+                                view.cancelCollectState(!aBoolean);
                             }
                         }
                     }

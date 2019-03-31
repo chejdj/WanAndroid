@@ -141,6 +141,8 @@ public class MeFragment extends WanAndroidBaseFragment implements MeContract.Vie
     private void refreshData() {
         if (presenter != null) {
             currentPage = 0;
+            listData.clear();
+            adapter.notifyDataSetChanged();
             ((MePresneter) presenter).loadCollectArticleFromIn(currentPage);
         }
     }

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.db.account.AccountManager;
+import com.chejdj.wanandroid.event.UnCollectArticleSucEvent;
 import com.chejdj.wanandroid.network.bean.article.Article;
 import com.chejdj.wanandroid.ui.base.WanAndroidBaseActivty;
 import com.chejdj.wanandroid.ui.webviewarticle.contract.WebViewArticleContract;
@@ -20,6 +21,8 @@ import com.chejdj.wanandroid.ui.webviewarticle.presenter.WebViewArticlePresenter
 import com.chejdj.wanandroid.util.NetUtils;
 import com.chejdj.wanandroid.util.StringUtil;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -54,6 +57,9 @@ public class WebViewArticleActivity extends WanAndroidBaseActivty implements Web
         Intent intent = getIntent();
         article = intent.getParcelableExtra(ARTICLE_NAME);
         collectState = intent.getBooleanExtra(COLLECT_STATE, false);
+        if(collectState){
+            collectButton.setIconDrawable(getDrawable(R.drawable.collected));
+        }
         if (article == null) {
             return;
         }
@@ -134,6 +140,7 @@ public class WebViewArticleActivity extends WanAndroidBaseActivty implements Web
                 collectState = true;
                 collectButton.setIconDrawable(getDrawable(R.drawable.collected));
             }
+            EventBus.getDefault().post(new UnCollectArticleSucEvent());
         } else {
             Toast.makeText(this, StringUtil.getString(this, R.string.collect_fail), Toast.LENGTH_SHORT).show();
         }
@@ -147,6 +154,7 @@ public class WebViewArticleActivity extends WanAndroidBaseActivty implements Web
                 collectState = false;
                 collectButton.setIconDrawable(getDrawable(R.drawable.collect_no));
             }
+            EventBus.getDefault().post(new UnCollectArticleSucEvent());
         } else {
             Toast.makeText(this, StringUtil.getString(this, R.string.cancel_collect_fail), Toast.LENGTH_SHORT).show();
         }

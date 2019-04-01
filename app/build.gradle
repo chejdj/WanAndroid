@@ -8,8 +8,8 @@ android {
         applicationId "com.chejdj.wanandroid"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 9
-        versionName "1.4.3"
+        versionCode 10
+        versionName "2.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk{
             abiFilters 'armeabi-v7a','arm64-v8a'
@@ -60,6 +60,8 @@ dependencies {
     implementation 'com.hyman:flowlayout-lib:1.1.2'
     //notify
     implementation 'org.greenrobot:eventbus:3.1.1'
+    //wx
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     //bugly
     implementation 'com.tencent.bugly:crashreport:latest.release'
 }

@@ -18,8 +18,8 @@ import com.chejdj.wanandroid.network.bean.article.Article;
 import com.chejdj.wanandroid.ui.base.WanAndroidBaseActivty;
 import com.chejdj.wanandroid.ui.webviewarticle.contract.WebViewArticleContract;
 import com.chejdj.wanandroid.ui.webviewarticle.presenter.WebViewArticlePresenter;
-import com.chejdj.wanandroid.util.NetUtils;
 import com.chejdj.wanandroid.util.StringUtil;
+import com.chejdj.wanandroid.util.wxshare.WxShareDialog;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import org.greenrobot.eventbus.EventBus;
@@ -46,9 +46,6 @@ public class WebViewArticleActivity extends WanAndroidBaseActivty implements Web
 
     @Override
     protected int getLayoutId() {
-        if (NetUtils.getNetWorkState() < 0) {
-            return R.layout.network_error;
-        }
         return R.layout.activity_webview_article;
     }
 
@@ -57,7 +54,7 @@ public class WebViewArticleActivity extends WanAndroidBaseActivty implements Web
         Intent intent = getIntent();
         article = intent.getParcelableExtra(ARTICLE_NAME);
         collectState = intent.getBooleanExtra(COLLECT_STATE, false);
-        if(collectState){
+        if (collectState) {
             collectButton.setIconDrawable(getDrawable(R.drawable.collected));
         }
         if (article == null) {
@@ -107,7 +104,7 @@ public class WebViewArticleActivity extends WanAndroidBaseActivty implements Web
 
     @OnClick(R.id.share)
     public void shareArticle() {
-        Toast.makeText(this, "账号正在审核中，尽情期待！！", Toast.LENGTH_SHORT).show();
+        WxShareDialog.showWxShareDialog(this, getWindow().getDecorView().findViewById(android.R.id.content), article);
     }
 
 

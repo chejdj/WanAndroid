@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WanAndroid</string>
+    <string name="app_name">Wan安卓</string>
     <string name="menu_home">首页</string>
     <string name="menu_knowledge_hierarchy">体系</string>
     <string name="menu_wechat_sub">公众号</string>
@@ -31,4 +31,7 @@
     <string name="please_login">请先登录，再收藏！！</string>
     <string name="deny_permissions_warning">拒绝权限，将导致图片加载不出来！！</string>
     <string name="reload">重新加载</string>
+    <string name="wx_friends">朋友</string>
+    <string name="wx_timeline">朋友圈</string>
+    <string name="wx_share_error">没有安装微信或网络连接失败</string>
 </resources>

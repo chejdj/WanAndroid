@@ -1,5 +1,7 @@
 package com.chejdj.wanandroid.ui.commonarticlelist.presenter;
 
+import android.util.Log;
+
 import com.chejdj.wanandroid.network.bean.article.ArticleDataRes;
 import com.chejdj.wanandroid.ui.commonarticlelist.contract.CommonArticleListContract;
 import com.chejdj.wanandroid.ui.commonarticlelist.model.CommonArticleListModel;
@@ -10,6 +12,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class CommonArticleListPresenter implements CommonArticleListContract.Presenter {
+    private static final String TAG="CommonArticlePresenter";
     private CommonArticleListContract.View view;
     private CommonArticleListContract.Model model;
 
@@ -40,6 +43,7 @@ public class CommonArticleListPresenter implements CommonArticleListContract.Pre
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.e(TAG,"getArticlesFromKnowledges : "+e.getMessage());
 
                     }
 
@@ -73,7 +77,7 @@ public class CommonArticleListPresenter implements CommonArticleListContract.Pre
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e(TAG,"getArticlesFromProject: "+e.getMessage());
                     }
 
                     @Override
@@ -106,7 +110,7 @@ public class CommonArticleListPresenter implements CommonArticleListContract.Pre
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e(TAG," getArticlesFromWechatChapter"+e.getMessage());
                     }
 
                     @Override

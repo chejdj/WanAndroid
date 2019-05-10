@@ -31,6 +31,7 @@ public class SubjectArticleActivity extends WanAndroidBaseActivty {
     @BindView(R.id.tabLayout)
     TabLayout tabLayout;
     private List<SecondaryArticleDirectory> secondaryArticleDirectoryList;
+    private List<Fragment> fragmentList;
 
 
     @Override
@@ -45,8 +46,8 @@ public class SubjectArticleActivity extends WanAndroidBaseActivty {
         secondaryArticleDirectoryList = intent.getParcelableArrayListExtra(DETAIL_DIRECTORY);
 
         titleTx.setText(title);
-        List<Fragment> fragmentList = new ArrayList<>();
         List<String> subTitles = new ArrayList<>();
+        fragmentList = new ArrayList<>();
         for (SecondaryArticleDirectory directory : secondaryArticleDirectoryList) {
             String directoryName = directory.getName();
             subTitles.add(directoryName);
@@ -63,6 +64,12 @@ public class SubjectArticleActivity extends WanAndroidBaseActivty {
     public void back() {
         secondaryArticleDirectoryList = null;
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        fragmentList = null;
     }
 
     public static void startSubArticleActivity(Context context, String title, ArrayList<SecondaryArticleDirectory> detailData) {

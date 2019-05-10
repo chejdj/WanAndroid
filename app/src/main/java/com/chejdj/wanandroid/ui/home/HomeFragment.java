@@ -1,7 +1,6 @@
 package com.chejdj.wanandroid.ui.home;
 
 import android.content.Intent;
-import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,7 +22,6 @@ import com.chejdj.wanandroid.ui.home.contract.HomeContract;
 import com.chejdj.wanandroid.ui.home.presenter.HomePresenter;
 import com.chejdj.wanandroid.ui.search.SearchActivity;
 import com.chejdj.wanandroid.ui.webviewarticle.WebViewArticleActivity;
-import com.chejdj.wanandroid.util.WeakHandler;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
@@ -48,7 +46,6 @@ public class HomeFragment extends WanAndroidBaseFragment implements HomeContract
     private int currentPage = 0;
     private int totalPage = 0;
     private CommonArticleAdapter commonArticleAdapter;
-    private WeakHandler delayHandler;
 
     @Override
     protected int getLayoutId() {
@@ -85,11 +82,6 @@ public class HomeFragment extends WanAndroidBaseFragment implements HomeContract
     private void initData() {
         articleList = new ArrayList<>();
         bannerList = new ArrayList<>();
-        delayHandler = new WeakHandler((Message msg) -> {
-            ((HomePresenter) presenter).start();
-            refreshLayout.setRefreshing(false);
-            return true;
-        });
     }
 
     @Override
@@ -116,7 +108,7 @@ public class HomeFragment extends WanAndroidBaseFragment implements HomeContract
                 commonArticleAdapter.loadMoreEnd();
             }
         }, recyclerView);
-        refreshLayout.setOnRefreshListener(() -> delayHandler.sendMessageDelayed(Message.obtain(), 2000));
+        refreshLayout.setOnRefreshListener(() -> ((HomePresenter) presenter).start());
         homeBanner.setOnBannerListener((position) -> {
             HomeBanner banner = bannerList.get(position);
             Article article = new Article();
@@ -148,6 +140,9 @@ public class HomeFragment extends WanAndroidBaseFragment implements HomeContract
     //获取到Articles
     @Override
     public void showArticles(ArticleData articleData) {
+        if (refreshLayout.isRefreshing()) {
+            refreshLayout.setRefreshing(false);
+        }
         if (networkError.getVisibility() == View.VISIBLE) {
             networkError.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);

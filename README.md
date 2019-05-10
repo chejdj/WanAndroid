@@ -39,6 +39,7 @@
 ### 版本更新说明  
 
 ```
+v2.1.0 引入滴滴的哆啦A梦,修改一些Bugly的上Bug
 v2.0.0 加入微信分享+修改了部分Bug  
 v1.4.2 更新部分界面，以及无网络及网络差的友好显示，及Bugly上面的Bug  
 v1.3.0 修改首页Frament之间的切换方式以及FragmentStatePagerAdapter的Bug    

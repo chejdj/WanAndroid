@@ -14,7 +14,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 public class WxShareUtil {
-    private static final String APP_ID = "*****"; //填入自己的APPID
+    private static final String APP_ID = "wxdf25b090687b0c33"; //填入自己的APPID
     private IWXAPI api;
 
     private WxShareUtil() {

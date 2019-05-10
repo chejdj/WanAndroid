@@ -8,7 +8,6 @@ import com.chejdj.wanandroid.network.bean.article.ArticleData;
 import com.chejdj.wanandroid.network.bean.article.ArticleDataRes;
 import com.chejdj.wanandroid.ui.me.contract.MeContract;
 import com.chejdj.wanandroid.ui.me.model.MeModel;
-import com.chejdj.wanandroid.util.NetUtils;
 
 import java.util.ArrayList;
 import java.util.List;

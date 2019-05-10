@@ -86,6 +86,12 @@ public class ProjectFragment extends WanAndroidBaseFragment implements ProjectCo
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragmentList=null;
+    }
+
     @OnClick(R.id.reloadBtn)
     public void reloadData() {
         if (progressBar.getVisibility() == View.GONE) {

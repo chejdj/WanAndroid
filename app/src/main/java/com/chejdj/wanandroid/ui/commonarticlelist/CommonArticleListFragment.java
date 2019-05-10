@@ -1,7 +1,6 @@
 package com.chejdj.wanandroid.ui.commonarticlelist;
 
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,6 @@ import com.chejdj.wanandroid.ui.base.WanAndroidBaseFragment;
 import com.chejdj.wanandroid.ui.commonarticlelist.contract.CommonArticleListContract;
 import com.chejdj.wanandroid.ui.commonarticlelist.presenter.CommonArticleListPresenter;
 import com.chejdj.wanandroid.ui.webviewarticle.WebViewArticleActivity;
-import com.chejdj.wanandroid.util.WeakHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +32,6 @@ public class CommonArticleListFragment extends WanAndroidBaseFragment implements
     private int cid;
     private List<Article> articleList;
     private CommonArticleAdapter adapter;
-    private WeakHandler delayHandler;
 
 
     @Override
@@ -71,13 +68,10 @@ public class CommonArticleListFragment extends WanAndroidBaseFragment implements
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
-        delayHandler = new WeakHandler((Message msg) -> {
+        swipeRefreshLayout.setOnRefreshListener(() -> {
             currentPage = 0;
             startPresenterGetData(currentPage);
-            swipeRefreshLayout.setRefreshing(false);
-            return true;
         });
-        swipeRefreshLayout.setOnRefreshListener(() -> delayHandler.sendMessageDelayed(Message.obtain(), 2000));
         startPresenterGetData(currentPage);
     }
 
@@ -116,6 +110,9 @@ public class CommonArticleListFragment extends WanAndroidBaseFragment implements
 
     @Override
     public void updateArticles(ArticleData data) {
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
         if (totalPage == 0) {
             totalPage = data.getPageCount();
         }

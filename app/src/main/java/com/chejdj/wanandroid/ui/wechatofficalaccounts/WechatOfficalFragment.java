@@ -87,6 +87,12 @@ public class WechatOfficalFragment extends WanAndroidBaseFragment implements WeC
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragmentList = null;
+    }
+
     @OnClick(R.id.reloadBtn)
     public void reloadData() {
         if (progressBar.getVisibility() == View.GONE) {

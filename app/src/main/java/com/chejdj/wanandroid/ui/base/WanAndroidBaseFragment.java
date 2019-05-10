@@ -30,9 +30,7 @@ public abstract class WanAndroidBaseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (getLayoutId() != R.layout.network_error) {
             initView();
-        }
     }
 
     @Override

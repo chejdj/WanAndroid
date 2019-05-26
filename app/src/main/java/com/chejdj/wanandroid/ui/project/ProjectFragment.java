@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectory;
+import com.chejdj.wanandroid.ui.base.FragmentManagerLazyLoadFragment;
 import com.chejdj.wanandroid.ui.base.WanAndroidBaseFragment;
 import com.chejdj.wanandroid.ui.commonarticlelist.CommonArticleListFragment;
 import com.chejdj.wanandroid.ui.commonarticlelist.CommonPagerFragmentAdapter;
@@ -22,7 +23,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class ProjectFragment extends WanAndroidBaseFragment implements ProjectContract.View {
+public class ProjectFragment extends FragmentManagerLazyLoadFragment implements ProjectContract.View {
     @BindView(R.id.tabLayout)
     TabLayout tabLayout;
     @BindView(R.id.viewPager)
@@ -45,6 +46,10 @@ public class ProjectFragment extends WanAndroidBaseFragment implements ProjectCo
         subTitles = new ArrayList<>();
         fragmentList = new ArrayList<>();
         presenter = new ProjectPresenter(this);
+    }
+
+    @Override
+    protected void loadData() {
         ((ProjectPresenter) presenter).getProjectDirectory();
     }
 
@@ -89,7 +94,10 @@ public class ProjectFragment extends WanAndroidBaseFragment implements ProjectCo
     @Override
     public void onDestroy() {
         super.onDestroy();
-        fragmentList=null;
+        if (!fragmentList.isEmpty()) {
+            fragmentList.clear();
+            System.gc();
+        }
     }
 
     @OnClick(R.id.reloadBtn)

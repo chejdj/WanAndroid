@@ -16,6 +16,7 @@ import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.article.Article;
 import com.chejdj.wanandroid.network.bean.article.ArticleData;
 import com.chejdj.wanandroid.network.bean.homepage.HomeBanner;
+import com.chejdj.wanandroid.ui.base.FragmentManagerLazyLoadFragment;
 import com.chejdj.wanandroid.ui.base.WanAndroidBaseFragment;
 import com.chejdj.wanandroid.ui.commonarticlelist.CommonArticleAdapter;
 import com.chejdj.wanandroid.ui.home.contract.HomeContract;
@@ -31,7 +32,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class HomeFragment extends WanAndroidBaseFragment implements HomeContract.View {
+public class HomeFragment extends FragmentManagerLazyLoadFragment implements HomeContract.View {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.swipe_refresh)
@@ -72,16 +73,18 @@ public class HomeFragment extends WanAndroidBaseFragment implements HomeContract
         commonArticleAdapter.setEnableLoadMore(true);
 
         recyclerView.setAdapter(commonArticleAdapter);
-
-        presenter = new HomePresenter(this);
-        ((HomePresenter) presenter).start();
         refreshAndloadMore();
-
     }
 
     private void initData() {
         articleList = new ArrayList<>();
         bannerList = new ArrayList<>();
+        presenter = new HomePresenter(this);
+    }
+
+    @Override
+    protected void loadData() {
+        ((HomePresenter) presenter).start();
     }
 
     @Override

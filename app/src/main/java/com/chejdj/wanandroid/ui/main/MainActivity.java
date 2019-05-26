@@ -33,7 +33,16 @@ public class MainActivity extends WanAndroidBaseActivty {
     protected void initView() {
         initFragments();
         lastFragment = 0;
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer, fragmentList.get(lastFragment))
+        getSupportFragmentManager().beginTransaction().add(R.id.mainContainer, fragmentList.get(0))
+                .add(R.id.mainContainer, fragmentList.get(1))
+                .add(R.id.mainContainer, fragmentList.get(2))
+                .add(R.id.mainContainer, fragmentList.get(3))
+                .add(R.id.mainContainer, fragmentList.get(4))
+                .hide(fragmentList.get(0))
+                .hide(fragmentList.get(1))
+                .hide(fragmentList.get(2))
+                .hide(fragmentList.get(3))
+                .hide(fragmentList.get(4))
                 .show(fragmentList.get(lastFragment)).commit();
         bottomNavigationView.setLabelVisibilityMode(1);
         bottomNavigationView.setOnNavigationItemSelectedListener((menuItem) -> {
@@ -86,10 +95,6 @@ public class MainActivity extends WanAndroidBaseActivty {
 
     private void switchFragment(int lastFragment, int currentIndex) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.hide(fragmentList.get(lastFragment));
-        if (!fragmentList.get(currentIndex).isAdded()) {
-            transaction.add(R.id.mainContainer, fragmentList.get(currentIndex));
-        }
-        transaction.show(fragmentList.get(currentIndex)).commitNowAllowingStateLoss();
+        transaction.hide(fragmentList.get(lastFragment)).show(fragmentList.get(currentIndex)).commitAllowingStateLoss();
     }
 }

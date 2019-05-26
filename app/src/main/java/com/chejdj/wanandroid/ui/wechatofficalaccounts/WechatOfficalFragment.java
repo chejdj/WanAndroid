@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectory;
+import com.chejdj.wanandroid.ui.base.FragmentManagerLazyLoadFragment;
 import com.chejdj.wanandroid.ui.base.WanAndroidBaseFragment;
 import com.chejdj.wanandroid.ui.commonarticlelist.CommonArticleListFragment;
 import com.chejdj.wanandroid.ui.commonarticlelist.CommonPagerFragmentAdapter;
@@ -22,7 +23,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class WechatOfficalFragment extends WanAndroidBaseFragment implements WeChatOfficalContractor.View {
+public class WechatOfficalFragment extends FragmentManagerLazyLoadFragment implements WeChatOfficalContractor.View {
     @BindView(R.id.viewPager)
     ViewPager viewPager;
     @BindView(R.id.tabLayout)
@@ -45,6 +46,10 @@ public class WechatOfficalFragment extends WanAndroidBaseFragment implements WeC
         subTitles = new ArrayList<>();
         fragmentList = new ArrayList<>();
         presenter = new WechatOfficalPresenter(this);
+    }
+
+    @Override
+    protected void loadData() {
         ((WechatOfficalPresenter) presenter).getWechatChapters();
     }
 
@@ -90,7 +95,9 @@ public class WechatOfficalFragment extends WanAndroidBaseFragment implements WeC
     @Override
     public void onDestroy() {
         super.onDestroy();
-        fragmentList = null;
+        if (!fragmentList.isEmpty()) {
+            fragmentList.clear();
+        }
     }
 
     @OnClick(R.id.reloadBtn)

@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectory;
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectoryRes;
+import com.chejdj.wanandroid.ui.base.FragmentManagerLazyLoadFragment;
 import com.chejdj.wanandroid.ui.base.WanAndroidBaseFragment;
 import com.chejdj.wanandroid.ui.knowledgehierarchy.contract.KnowledgeHierContract;
 import com.chejdj.wanandroid.ui.knowledgehierarchy.presenter.KnowledgeHierPresenter;
@@ -21,7 +22,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class KnowledgeHierFragment extends WanAndroidBaseFragment implements KnowledgeHierContract.View {
+public class KnowledgeHierFragment extends FragmentManagerLazyLoadFragment implements KnowledgeHierContract.View {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.networkError)
@@ -48,6 +49,10 @@ public class KnowledgeHierFragment extends WanAndroidBaseFragment implements Kno
             SubjectArticleActivity.startSubArticleActivity(getActivity(), articleDirectoryList.get(position).getName(), (ArrayList) articleDirectoryList.get(position).getChildren());
         });
         presenter = new KnowledgeHierPresenter(this);
+    }
+
+    @Override
+    protected void loadData() {
         ((KnowledgeHierPresenter) presenter).getDetailKnowledgeHier();
     }
 

@@ -30,7 +30,12 @@ public abstract class WanAndroidBaseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-            initView();
+        initView();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
     }
 
     @Override
@@ -44,6 +49,5 @@ public abstract class WanAndroidBaseFragment extends Fragment {
     }
 
     protected abstract int getLayoutId();
-
     protected abstract void initView();
 }

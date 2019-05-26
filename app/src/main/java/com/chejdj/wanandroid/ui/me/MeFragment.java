@@ -15,11 +15,12 @@ import android.widget.TextView;
 
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.db.account.AccountManager;
+import com.chejdj.wanandroid.db.account.entity.Account;
 import com.chejdj.wanandroid.event.LoginSuccessEvent;
 import com.chejdj.wanandroid.event.UnCollectArticleSucEvent;
 import com.chejdj.wanandroid.network.bean.article.Article;
 import com.chejdj.wanandroid.network.bean.article.ArticleData;
-import com.chejdj.wanandroid.ui.base.WanAndroidBaseFragment;
+import com.chejdj.wanandroid.ui.base.FragmentManagerLazyLoadFragment;
 import com.chejdj.wanandroid.ui.login.LoginActivity;
 import com.chejdj.wanandroid.ui.me.contract.MeContract;
 import com.chejdj.wanandroid.ui.me.presenter.MePresneter;
@@ -36,7 +37,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MeFragment extends WanAndroidBaseFragment implements MeContract.View {
+public class MeFragment extends FragmentManagerLazyLoadFragment implements MeContract.View {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.picture)
@@ -99,9 +100,14 @@ public class MeFragment extends WanAndroidBaseFragment implements MeContract.Vie
                 }
             }, recyclerView);
             recyclerView.setAdapter(adapter);
-
-
             presenter = new MePresneter(this);
+        }
+
+    }
+
+    @Override
+    protected void loadData() {
+        if (AccountManager.getInstance().isLogin()) {
             ((MePresneter) presenter).loadCollectArticleFromIn(currentPage);
         }
     }
@@ -113,7 +119,7 @@ public class MeFragment extends WanAndroidBaseFragment implements MeContract.Vie
             startActivity(intent);
         } else {
             //弹窗提示退出
-            AlertDialog alertDialog = new AlertDialog.Builder(getActivity(),R.style.Theme_MaterialComponents_Light_Dialog_Alert)
+            AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), R.style.Theme_MaterialComponents_Light_Dialog_Alert)
                     .setCancelable(true)
                     .setNegativeButton("OK", (dialogInterface, i) -> {
                         dialogInterface.dismiss();
@@ -176,4 +182,5 @@ public class MeFragment extends WanAndroidBaseFragment implements MeContract.Vie
     public void needRefreshView(UnCollectArticleSucEvent event) {
         refreshData();
     }
+
 }

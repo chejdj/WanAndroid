@@ -1,7 +1,6 @@
 package com.chejdj.wanandroid.ui.project;
 
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -10,8 +9,6 @@ import android.widget.RelativeLayout;
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectory;
 import com.chejdj.wanandroid.ui.base.FragmentManagerLazyLoadFragment;
-import com.chejdj.wanandroid.ui.base.WanAndroidBaseFragment;
-import com.chejdj.wanandroid.ui.commonarticlelist.CommonArticleListFragment;
 import com.chejdj.wanandroid.ui.commonarticlelist.CommonPagerFragmentAdapter;
 import com.chejdj.wanandroid.ui.project.contract.ProjectContract;
 import com.chejdj.wanandroid.ui.project.presenter.ProjectPresenter;
@@ -33,7 +30,7 @@ public class ProjectFragment extends FragmentManagerLazyLoadFragment implements 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     private List<String> subTitles;
-    private List<Fragment> fragmentList;
+    private List<Integer> cidNumbers;
     private static final int TYPE_COMMON_LIST_FRAGMENT = 2;//代表和CommonArticleListFragment的协议
 
     @Override
@@ -44,7 +41,7 @@ public class ProjectFragment extends FragmentManagerLazyLoadFragment implements 
     @Override
     protected void initView() {
         subTitles = new ArrayList<>();
-        fragmentList = new ArrayList<>();
+        cidNumbers = new ArrayList<>();
         presenter = new ProjectPresenter(this);
     }
 
@@ -66,12 +63,12 @@ public class ProjectFragment extends FragmentManagerLazyLoadFragment implements 
             progressBar.setVisibility(View.GONE);
         }
 
-        CommonPagerFragmentAdapter adapter = new CommonPagerFragmentAdapter(subTitles, fragmentList, getChildFragmentManager());
         for (PrimaryArticleDirectory projectDirectory : directories) {
             subTitles.add(projectDirectory.getName());
+            cidNumbers.add(projectDirectory.getId());
             tabLayout.addTab(tabLayout.newTab().setText(projectDirectory.getName()));
-            fragmentList.add(CommonArticleListFragment.getInstance(TYPE_COMMON_LIST_FRAGMENT, projectDirectory.getId()));
         }
+        CommonPagerFragmentAdapter adapter = new CommonPagerFragmentAdapter(subTitles, cidNumbers, TYPE_COMMON_LIST_FRAGMENT, getChildFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
         tabLayout.setupWithViewPager(viewPager);
@@ -88,15 +85,6 @@ public class ProjectFragment extends FragmentManagerLazyLoadFragment implements 
         }
         if (networkError.getVisibility() == View.GONE) {
             networkError.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (!fragmentList.isEmpty()) {
-            fragmentList.clear();
-            System.gc();
         }
     }
 

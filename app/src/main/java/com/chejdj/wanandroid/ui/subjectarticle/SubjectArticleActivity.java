@@ -31,7 +31,7 @@ public class SubjectArticleActivity extends WanAndroidBaseActivty {
     @BindView(R.id.tabLayout)
     TabLayout tabLayout;
     private List<SecondaryArticleDirectory> secondaryArticleDirectoryList;
-    private List<Fragment> fragmentList;
+    private List<Integer> cidNumbers;
 
 
     @Override
@@ -47,14 +47,14 @@ public class SubjectArticleActivity extends WanAndroidBaseActivty {
 
         titleTx.setText(title);
         List<String> subTitles = new ArrayList<>();
-        fragmentList = new ArrayList<>();
+        cidNumbers = new ArrayList<>();
         for (SecondaryArticleDirectory directory : secondaryArticleDirectoryList) {
             String directoryName = directory.getName();
             subTitles.add(directoryName);
+            cidNumbers.add(directory.getId());
             tabLayout.addTab(tabLayout.newTab().setText(directoryName));
-            fragmentList.add(CommonArticleListFragment.getInstance(TYPE_COMMON_LIST_FRAGMENT, directory.getId()));
         }
-        CommonPagerFragmentAdapter adapter = new CommonPagerFragmentAdapter(subTitles, fragmentList, getSupportFragmentManager());
+        CommonPagerFragmentAdapter adapter = new CommonPagerFragmentAdapter(subTitles, cidNumbers, TYPE_COMMON_LIST_FRAGMENT, getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setCurrentItem(0);
@@ -64,12 +64,6 @@ public class SubjectArticleActivity extends WanAndroidBaseActivty {
     public void back() {
         secondaryArticleDirectoryList = null;
         finish();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        fragmentList = null;
     }
 
     public static void startSubArticleActivity(Context context, String title, ArrayList<SecondaryArticleDirectory> detailData) {

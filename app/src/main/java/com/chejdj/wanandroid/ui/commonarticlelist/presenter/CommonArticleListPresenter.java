@@ -12,7 +12,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class CommonArticleListPresenter implements CommonArticleListContract.Presenter {
-    private static final String TAG="CommonArticlePresenter";
+    private static final String TAG = "CommonArticlePresenter";
     private CommonArticleListContract.View view;
     private CommonArticleListContract.Model model;
 
@@ -43,7 +43,10 @@ public class CommonArticleListPresenter implements CommonArticleListContract.Pre
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG,"getArticlesFromKnowledges : "+e.getMessage());
+                        Log.e(TAG, "getArticlesFromKnowledges : " + e.getMessage());
+                        if (view != null) {
+                            view.loadDataFail();
+                        }
 
                     }
 
@@ -77,7 +80,10 @@ public class CommonArticleListPresenter implements CommonArticleListContract.Pre
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG,"getArticlesFromProject: "+e.getMessage());
+                        Log.e(TAG, "getArticlesFromProject: " + e.getMessage());
+                        if (view != null) {
+                            view.loadDataFail();
+                        }
                     }
 
                     @Override
@@ -110,7 +116,7 @@ public class CommonArticleListPresenter implements CommonArticleListContract.Pre
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG," getArticlesFromWechatChapter"+e.getMessage());
+                        Log.e(TAG, " getArticlesFromWechatChapter" + e.getMessage());
                     }
 
                     @Override

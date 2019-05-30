@@ -39,6 +39,7 @@
 ### 版本更新说明  
 
 ```
+v2.2.0 Fragment的懒加载和内存泄漏问题
 v2.1.0 引入滴滴的哆啦A梦,修改一些Bugly的上Bug
 v2.0.0 加入微信分享+修改了部分Bug  
 v1.4.2 更新部分界面，以及无网络及网络差的友好显示，及Bugly上面的Bug  
@@ -56,7 +57,7 @@ v1.1.0 初始版本
 
 ![搜索](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/search.png?token=AQ4MySH6FlcA90BGrtyjntteyjqyn54hks5cmZBtwA%3D%3D)![文章](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/article.png?token=AQ4MyZ4y36FW7ccDsmyNSgHvBz7Ye3QRks5cmZCFwA%3D%3D)  
 ### 项目资源  
-1. [APP下载地址](https://github.com/chejdj/WanAndroid/releases/download/1.2.0/app-release.apk)，二维码  
+1. [APP下载地址](https://github.com/chejdj/WanAndroid/releases/download/V2.2.0/app-release.apk)，二维码  
 ![二维码](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/apk_download.png)  
 (二维码的APK永远都是最新的，release上的重大更新才发版)  
 2. 项目地址: https://github.com/chejdj/WanAndroid

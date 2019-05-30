@@ -34,4 +34,5 @@
     <string name="wx_friends">朋友</string>
     <string name="wx_timeline">朋友圈</string>
     <string name="wx_share_error">没有安装微信或网络连接失败</string>
+    <string name="no_data_show">暂无数据～～</string>
 </resources>

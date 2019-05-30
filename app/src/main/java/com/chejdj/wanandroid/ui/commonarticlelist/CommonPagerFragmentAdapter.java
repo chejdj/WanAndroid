@@ -9,24 +9,25 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.List;
 
 public class CommonPagerFragmentAdapter extends FragmentStatePagerAdapter {
-    private List<Fragment> fragmentList;
     private List<String> subTitles;
+    private List<Integer> cidNumbers;
+    private int type;
 
-    public CommonPagerFragmentAdapter(List<String> subTitles, List<Fragment> fragments, FragmentManager fm) {
+    public CommonPagerFragmentAdapter(List<String> subTitles, List<Integer> cidNumbers, int type, FragmentManager fm) {
         super(fm);
         this.subTitles = subTitles;
-        this.fragmentList = fragments;
-
+        this.cidNumbers = cidNumbers;
+        this.type = type;
     }
 
     @Override
     public Fragment getItem(int i) {
-        return fragmentList == null ? null : fragmentList.get(i);
+        return CommonArticleListFragment.getInstance(type, cidNumbers.get(i));
     }
 
     @Override
     public int getCount() {
-        return fragmentList == null ? 0 : fragmentList.size();
+        return subTitles == null ? 0 : subTitles.size();
     }
 
     @Nullable

@@ -5,6 +5,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.article.Article;
@@ -27,6 +29,8 @@ public class CommonArticleListFragment extends ViewPaperLazyLoadFragment impleme
     RecyclerView recyclerView;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.noData)
+    LinearLayout noDataLayout;
     private int currentPage;
     private int totalPage;
     private int type;
@@ -127,8 +131,22 @@ public class CommonArticleListFragment extends ViewPaperLazyLoadFragment impleme
         if (totalPage == 0) {
             totalPage = data.getPageCount();
         }
-        currentPage = data.getCurPage();
-        adapter.addData(data.getListData());
-        adapter.loadMoreComplete();
+        if (data.getListData().isEmpty() && noDataLayout.getVisibility() == View.GONE) {
+            noDataLayout.setVisibility(View.VISIBLE);
+        } else if (noDataLayout.getVisibility() == View.GONE) {
+            if (noDataLayout.getVisibility() == View.VISIBLE) {
+                noDataLayout.setVisibility(View.GONE);
+            }
+            currentPage = data.getCurPage();
+            adapter.addData(data.getListData());
+            adapter.loadMoreComplete();
+        }
+    }
+
+    @Override
+    public void loadDataFail() {
+        if (noDataLayout.getVisibility() == View.GONE) {
+            noDataLayout.setVisibility(View.VISIBLE);
+        }
     }
 }

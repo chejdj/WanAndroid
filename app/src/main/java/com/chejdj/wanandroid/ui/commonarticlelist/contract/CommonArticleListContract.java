@@ -10,6 +10,7 @@ import io.reactivex.Observable;
 public interface CommonArticleListContract {
     interface View {
         void updateArticles(ArticleData data);
+        void loadDataFail();
     }
 
     interface Presenter extends WanAndroidBasePresenter {

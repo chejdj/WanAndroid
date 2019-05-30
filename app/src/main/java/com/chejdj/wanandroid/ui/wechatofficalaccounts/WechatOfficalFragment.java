@@ -33,7 +33,7 @@ public class WechatOfficalFragment extends FragmentManagerLazyLoadFragment imple
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     private List<String> subTitles;
-    private List<Fragment> fragmentList;
+    private List<Integer> cidNumbers;
     private static final int TYPE_COMMON_LIST_FRAGMENT = 3;//代表和CommonArticleListFragment的协议
 
     @Override
@@ -44,7 +44,7 @@ public class WechatOfficalFragment extends FragmentManagerLazyLoadFragment imple
     @Override
     protected void initView() {
         subTitles = new ArrayList<>();
-        fragmentList = new ArrayList<>();
+        cidNumbers = new ArrayList<>();
         presenter = new WechatOfficalPresenter(this);
     }
 
@@ -67,12 +67,12 @@ public class WechatOfficalFragment extends FragmentManagerLazyLoadFragment imple
             progressBar.setVisibility(View.GONE);
         }
 
-        CommonPagerFragmentAdapter adapter = new CommonPagerFragmentAdapter(subTitles, fragmentList, getChildFragmentManager());
         for (PrimaryArticleDirectory projectDirectory : data) {
             subTitles.add(projectDirectory.getName());
             tabLayout.addTab(tabLayout.newTab().setText(projectDirectory.getName()));
-            fragmentList.add(CommonArticleListFragment.getInstance(TYPE_COMMON_LIST_FRAGMENT, projectDirectory.getId()));
+            cidNumbers.add(projectDirectory.getId());
         }
+        CommonPagerFragmentAdapter adapter = new CommonPagerFragmentAdapter(subTitles, cidNumbers, TYPE_COMMON_LIST_FRAGMENT, getChildFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
         tabLayout.setupWithViewPager(viewPager);
@@ -89,14 +89,6 @@ public class WechatOfficalFragment extends FragmentManagerLazyLoadFragment imple
         }
         if (networkError.getVisibility() == View.GONE) {
             networkError.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (!fragmentList.isEmpty()) {
-            fragmentList.clear();
         }
     }
 

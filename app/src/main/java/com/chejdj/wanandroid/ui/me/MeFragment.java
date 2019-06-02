@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.db.account.AccountManager;
-import com.chejdj.wanandroid.db.account.entity.Account;
 import com.chejdj.wanandroid.event.LoginSuccessEvent;
 import com.chejdj.wanandroid.event.UnCollectArticleSucEvent;
 import com.chejdj.wanandroid.network.bean.article.Article;
@@ -102,7 +101,6 @@ public class MeFragment extends FragmentManagerLazyLoadFragment implements MeCon
             recyclerView.setAdapter(adapter);
             presenter = new MePresneter(this);
         }
-
     }
 
     @Override
@@ -110,6 +108,11 @@ public class MeFragment extends FragmentManagerLazyLoadFragment implements MeCon
         if (AccountManager.getInstance().isLogin()) {
             ((MePresneter) presenter).loadCollectArticleFromIn(currentPage);
         }
+    }
+
+    @Override
+    protected boolean isDataEmpty() {
+        return listData == null || listData.size() == 0;
     }
 
     @OnClick(R.id.picture)
@@ -176,6 +179,7 @@ public class MeFragment extends FragmentManagerLazyLoadFragment implements MeCon
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void loginSuccessfulEvent(LoginSuccessEvent event) {
         initView();
+        refreshData();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

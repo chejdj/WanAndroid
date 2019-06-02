@@ -88,6 +88,11 @@ public class HomeFragment extends FragmentManagerLazyLoadFragment implements Hom
     }
 
     @Override
+    protected boolean isDataEmpty() {
+        return articleList == null || articleList.size() == 0 || bannerList == null || bannerList.size() == 0;
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         if (homeBanner != null) {

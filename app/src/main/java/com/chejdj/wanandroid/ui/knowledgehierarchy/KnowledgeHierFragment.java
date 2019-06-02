@@ -57,6 +57,11 @@ public class KnowledgeHierFragment extends FragmentManagerLazyLoadFragment imple
     }
 
     @Override
+    protected boolean isDataEmpty() {
+        return articleDirectoryList == null || articleDirectoryList.size() == 0;
+    }
+
+    @Override
     public void updateDetailKnowledgeHier(PrimaryArticleDirectoryRes directory) {
         if (recyclerView.getVisibility() == View.GONE) {
             recyclerView.setVisibility(View.VISIBLE);

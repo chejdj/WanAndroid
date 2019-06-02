@@ -18,14 +18,14 @@ public abstract class FragmentManagerLazyLoadFragment extends WanAndroidBaseFrag
 
     private boolean isParentVisible() {
         Fragment fragment = getParentFragment();
-        return fragment==null ||(fragment != null && fragment.isVisible());
+        return fragment == null || (fragment != null && fragment.isVisible());
     }
 
 
     private void tryLoadData() {
-        if (isParentVisible() && !isLoadData) {
+        if (isParentVisible() && (!isLoadData || isDataEmpty())) {
             loadData();
-            isLoadData=true;
+            isLoadData = true;
             dispatchChildLoadData();
         }
     }
@@ -33,7 +33,7 @@ public abstract class FragmentManagerLazyLoadFragment extends WanAndroidBaseFrag
     private void dispatchChildLoadData() {
         FragmentManager fragmentManager = getChildFragmentManager();
         List<Fragment> fragments = fragmentManager.getFragments();
-        if (fragments==null || fragments.isEmpty()) {
+        if (fragments == null || fragments.isEmpty()) {
             return;
         }
         for (Fragment fragment : fragments) {
@@ -44,4 +44,6 @@ public abstract class FragmentManagerLazyLoadFragment extends WanAndroidBaseFrag
     }
 
     protected abstract void loadData();
+
+    protected abstract boolean isDataEmpty();
 }

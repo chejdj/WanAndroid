@@ -34,11 +34,6 @@ public abstract class WanAndroidBaseFragment extends Fragment {
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         if (presenter != null) {

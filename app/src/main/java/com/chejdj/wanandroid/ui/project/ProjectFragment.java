@@ -51,6 +51,11 @@ public class ProjectFragment extends FragmentManagerLazyLoadFragment implements 
     }
 
     @Override
+    protected boolean isDataEmpty() {
+        return subTitles == null || subTitles.size() == 0 || cidNumbers == null || cidNumbers.size() == 0;
+    }
+
+    @Override
     public void updateProjectDirectory(List<PrimaryArticleDirectory> directories) {
         if (viewPager.getVisibility() == View.GONE) {
             viewPager.setVisibility(View.VISIBLE);

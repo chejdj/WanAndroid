@@ -1,6 +1,7 @@
 package com.chejdj.wanandroid.db.tablemanager;
 
 import com.chejdj.wanandroid.db.ObjectBox;
+import com.chejdj.wanandroid.db.account.AccountManager;
 import com.chejdj.wanandroid.db.entity.CollectArticleDB;
 import com.chejdj.wanandroid.db.entity.CollectArticleDB_;
 import com.chejdj.wanandroid.network.bean.article.Article;
@@ -33,12 +34,13 @@ public class CollectArticleTableManager {
     }
 
     public Observable<Boolean> insertCollectArticle(Article article) {
-        return insertCollectArticle(article.getLink(), article.getTitle(), article.getAuthor(), article.getPublishTime());
+        String accountName = AccountManager.getInstance().getCurrentAccount().getUsername();
+        return insertCollectArticle(article.getLink(), article.getTitle(), article.getAuthor(), article.getPublishTime(), accountName);
     }
 
-    private Observable<Boolean> insertCollectArticle(String link, String title, String author, long time) {
+    private Observable<Boolean> insertCollectArticle(String link, String title, String author, long time, String accountName) {
         return Observable.create(emitter -> {
-            CollectArticleDB collectArticleDB = new CollectArticleDB(link, title, time, author);
+            CollectArticleDB collectArticleDB = new CollectArticleDB(link, title, time, author, accountName);
             CollectArticleTableManager.collectArticleBox.put(collectArticleDB);
             emitter.onNext(true);
             emitter.onComplete();
@@ -69,7 +71,9 @@ public class CollectArticleTableManager {
 
     public Observable<List<CollectArticleDB>> getAllCollectArticle() {
         return Observable.create((emitter -> {
-            List<CollectArticleDB> data = CollectArticleTableManager.collectArticleBox.getAll();
+            String accountName = AccountManager.getInstance().getCurrentAccount().getUsername();
+            Query query = CollectArticleTableManager.collectArticleBox.query().equal(CollectArticleDB_.accountName, accountName).build();
+            List<CollectArticleDB> data = query.find();
             emitter.onNext(data);
             emitter.onComplete();
         }));
@@ -86,6 +90,5 @@ public class CollectArticleTableManager {
             emitter.onComplete();
         }));
     }
-
 
 }

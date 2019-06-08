@@ -14,12 +14,22 @@ public class CollectArticleDB {
     private String title;
     private String author;
     private long time;
+    private String accountName;
 
-    public CollectArticleDB(String link, String title, long time, String author) {
+    public CollectArticleDB(String link, String title, long time, String author, String accountName) {
         this.link = link;
         this.title = title;
         this.time = time;
         this.author = author;
+        this.accountName = accountName;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     public CollectArticleDB(Article article) {

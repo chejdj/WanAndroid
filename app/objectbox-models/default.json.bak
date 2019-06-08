@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:664001970280507653",
-      "lastPropertyId": "6:6220346759614676293",
+      "lastPropertyId": "5:8793973309910436162",
       "name": "CollectArticleDB",
       "properties": [
         {
@@ -27,10 +27,6 @@
         {
           "id": "5:8793973309910436162",
           "name": "time"
-        },
-        {
-          "id": "6:6220346759614676293",
-          "name": "accountName"
         }
       ],
       "relations": []

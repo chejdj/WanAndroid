@@ -1,30 +1,43 @@
 package com.chejdj.wanandroid.ui.webviewarticle;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.text.HtmlCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
+import android.view.WindowManager;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.chejdj.wanandroid.R;
+import com.chejdj.wanandroid.WanAndroidApplication;
 import com.chejdj.wanandroid.db.account.AccountManager;
 import com.chejdj.wanandroid.event.UnCollectArticleSucEvent;
 import com.chejdj.wanandroid.network.bean.article.Article;
-import com.chejdj.wanandroid.ui.base.WanAndroidBaseActivty;
 import com.chejdj.wanandroid.ui.webviewarticle.contract.WebViewArticleContract;
 import com.chejdj.wanandroid.ui.webviewarticle.presenter.WebViewArticlePresenter;
+import com.chejdj.wanandroid.ui.webviewarticle.sonic.SonicRuntimeImpl;
+import com.chejdj.wanandroid.ui.webviewarticle.sonic.SonicSessionClientImpl;
+import com.chejdj.wanandroid.util.DisplayUtil;
 import com.chejdj.wanandroid.util.StringUtil;
 import com.chejdj.wanandroid.util.wxshare.WxShareDialog;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.tencent.sonic.sdk.SonicConfig;
+import com.tencent.sonic.sdk.SonicEngine;
+import com.tencent.sonic.sdk.SonicSession;
+import com.tencent.sonic.sdk.SonicSessionConfig;
 
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.support.v4.text.HtmlCompat.FROM_HTML_MODE_LEGACY;
@@ -32,7 +45,7 @@ import static android.support.v4.text.HtmlCompat.FROM_HTML_MODE_LEGACY;
 
 //从首页进来的，都默认为未收藏状态(因为没有这个接口，查询是否收藏)
 //从收藏页过来的，都是收藏状态
-public class WebViewArticleActivity extends WanAndroidBaseActivty implements WebViewArticleContract.View {
+public class WebViewArticleActivity extends AppCompatActivity implements WebViewArticleContract.View {
     private static final String ARTICLE_NAME = "article";
     private static final String COLLECT_STATE = "collect_state";
     @BindView(R.id.articleToolbar)
@@ -43,17 +56,45 @@ public class WebViewArticleActivity extends WanAndroidBaseActivty implements Web
     FloatingActionButton collectButton;
     private boolean collectState;
     private Article article;
+    private WebViewArticleContract.Presenter presenter;
+    private SonicSession sonicSession;
+    private SonicSessionClientImpl sonicSessionClient;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_webview_article;
-    }
-
-    @Override
-    protected void initView() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         Intent intent = getIntent();
         article = intent.getParcelableExtra(ARTICLE_NAME);
         collectState = intent.getBooleanExtra(COLLECT_STATE, false);
+        initSonic();
+        setContentView(R.layout.activity_webview_article);
+        DisplayUtil.setCustomDensity(this, WanAndroidApplication.getMyApplication());
+        ButterKnife.bind(this);
+        initView();
+        initWebView();
+    }
+
+    private void initSonic() {
+        // init sonic engine if necessary, or maybe u can do this when application created
+        if (!SonicEngine.isGetInstanceAllowed()) {
+            SonicEngine.createInstance(new SonicRuntimeImpl(getApplication()), new SonicConfig.Builder().build());
+        }
+
+        sonicSessionClient = new SonicSessionClientImpl();
+        SonicSessionConfig.Builder sessionConfigBuilder = new SonicSessionConfig.Builder();
+        sessionConfigBuilder.setSupportLocalServer(true);
+        // create sonic session and run sonic flow
+        sonicSession = SonicEngine.getInstance().createSession(article.getLink(), sessionConfigBuilder.build());
+        if (null != sonicSession) {
+            sonicSession.bindClient(sonicSessionClient);
+        } else {
+            Toast.makeText(this, "create sonic session fail!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    protected void initView() {
         if (collectState) {
             collectButton.setIconDrawable(getDrawable(R.drawable.collected));
         }
@@ -62,44 +103,57 @@ public class WebViewArticleActivity extends WanAndroidBaseActivty implements Web
         }
         toolbar.setTitle(HtmlCompat.fromHtml(article.getTitle(), FROM_HTML_MODE_LEGACY).toString());
         toolbar.setNavigationOnClickListener(view -> finish());
-        initWebView();
 
         presenter = new WebViewArticlePresenter(this);
-        ((WebViewArticlePresenter) presenter).start(article);
+        presenter.start(article);
     }
 
     private void initWebView() {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUseWideViewPort(true);
-        //允许SessionStorage/LocalStorage存储
         webSettings.setDomStorageEnabled(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setAppCachePath(this.getDir("appacache", MODE_PRIVATE).getPath());
         webSettings.setLoadsImagesAutomatically(true);
         webSettings.setBlockNetworkImage(true);
-
+        webSettings.setAllowContentAccess(true);
+        webSettings.setDatabaseEnabled(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setSaveFormData(false);
         webView.setWebViewClient(new WebViewClient() {
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                webView.loadUrl(request.getUrl().toString());
-                return true;
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                if (sonicSession != null) {
+                    sonicSession.getSessionClient().pageFinish(url);
+                }
             }
 
+            @TargetApi(21)
             @Override
-            public void onPageFinished(WebView view, String url) {
-                webSettings.setBlockNetworkImage(false);
-                super.onPageFinished(view, url);
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                if (sonicSession != null) {
+                    return (WebResourceResponse) sonicSession.getSessionClient().requestResource(request.getUrl().toString());
+                }
+                return null;
             }
         });
-        webView.setOnKeyListener((view, i, keyEvent) -> {
-            if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
-                webView.goBack();
-                return true;
-            }
-            return false;
-        });
-        webView.loadUrl(article.getLink());
+        if (sonicSessionClient != null) {
+            sonicSessionClient.bindWebView(webView);
+            sonicSessionClient.clientReady();
+        } else {
+            webView.loadUrl(article.getLink());
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (sonicSession != null) {
+            sonicSession.destroy();
+            sonicSession = null;
+        }
+        super.onDestroy();
     }
 
     @OnClick(R.id.share)
@@ -112,9 +166,9 @@ public class WebViewArticleActivity extends WanAndroidBaseActivty implements Web
     public void collectArticle() {
         if (AccountManager.getInstance().isLogin()) {
             if (collectState) {
-                ((WebViewArticlePresenter) presenter).cancelCollect(article);
+                presenter.cancelCollect(article);
             } else {
-                ((WebViewArticlePresenter) presenter).collect(article);
+                presenter.collect(article);
             }
         } else {
             Toast.makeText(this, StringUtil.getString(this, R.string.please_login), Toast.LENGTH_SHORT).show();

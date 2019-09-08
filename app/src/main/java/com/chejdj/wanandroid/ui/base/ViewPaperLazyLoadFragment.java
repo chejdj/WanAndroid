@@ -29,13 +29,13 @@ public abstract class ViewPaperLazyLoadFragment extends WanAndroidBaseFragment {
     }
 
     private void dispatchChildLoadData() {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getChildFragmentManager();
         List<Fragment> fragments = fragmentManager.getFragments();
         if (fragments == null || fragments.isEmpty()) {
             return;
         }
         for (Fragment fragment : fragments) {
-            if (fragment instanceof ViewPaperLazyLoadFragment && fragment.isVisible()) {
+            if (fragment instanceof ViewPaperLazyLoadFragment && ((ViewPaperLazyLoadFragment) fragment).isVisible) {
                 ((ViewPaperLazyLoadFragment) fragment).tryLoadData();
             }
         }
@@ -43,7 +43,7 @@ public abstract class ViewPaperLazyLoadFragment extends WanAndroidBaseFragment {
 
     private boolean isParentVisible() {
         Fragment fragment = getParentFragment();
-        return fragment==null ||(fragment != null && fragment.isVisible());
+        return fragment == null || (fragment != null && fragment.isVisible());
     }
 
     private void tryLoadData() {

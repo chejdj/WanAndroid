@@ -1,4 +1,6 @@
 ## WanAndroid
+#### 项目的Kotlin+MVP+协程版本
+https://github.com/chejdj/WanAndroid-Kotlin
 #### 项目介绍
 **一款每日推荐优质文章的APP,该项目是鸿洋大佬推荐Andorid开发者的一个开源项目，项目中的API为鸿洋大佬提供([API直通车](https://www.wanandroid.com/blog/show/2))，此项目基于Java+Material Design+MVP+RxJava2+Retrofit等一些主流框架搭建而成**  
 ### 项目背景  

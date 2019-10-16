@@ -5,6 +5,7 @@ import android.util.Log;
 import com.chejdj.wanandroid.network.bean.article.ArticleDataRes;
 import com.chejdj.wanandroid.ui.commonarticlelist.contract.CommonArticleListContract;
 import com.chejdj.wanandroid.ui.commonarticlelist.model.CommonArticleListModel;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -26,6 +27,7 @@ public class CommonArticleListPresenter implements CommonArticleListContract.Pre
         model.getArticlesFromKnowledges(pageNum, cid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxFragment) view).bindToLifecycle())
                 .subscribe(new Observer<ArticleDataRes>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -63,6 +65,7 @@ public class CommonArticleListPresenter implements CommonArticleListContract.Pre
         model.getArticlesFromProject(pageNum, cid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxFragment) view).bindToLifecycle())
                 .subscribe(new Observer<ArticleDataRes>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -99,6 +102,7 @@ public class CommonArticleListPresenter implements CommonArticleListContract.Pre
         model.getArticlesFromWechatChapter(pageNum, cid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxFragment) view).bindToLifecycle())
                 .subscribe(new Observer<ArticleDataRes>() {
                     @Override
                     public void onSubscribe(Disposable d) {

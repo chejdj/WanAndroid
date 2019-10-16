@@ -5,6 +5,7 @@ import android.util.Log;
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectoryRes;
 import com.chejdj.wanandroid.ui.wechatofficalaccounts.contract.WeChatOfficalContractor;
 import com.chejdj.wanandroid.ui.wechatofficalaccounts.model.WechatOfficalModel;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -26,6 +27,7 @@ public class WechatOfficalPresenter implements WeChatOfficalContractor.Presenter
         model.getWechatChapters()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxFragment) view).bindToLifecycle())
                 .subscribe(new Observer<PrimaryArticleDirectoryRes>() {
                     @Override
                     public void onSubscribe(Disposable d) {

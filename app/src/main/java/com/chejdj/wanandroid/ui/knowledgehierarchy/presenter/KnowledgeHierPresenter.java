@@ -5,6 +5,7 @@ import android.util.Log;
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectoryRes;
 import com.chejdj.wanandroid.ui.knowledgehierarchy.contract.KnowledgeHierContract;
 import com.chejdj.wanandroid.ui.knowledgehierarchy.model.KnowledgeHierModel;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,6 +28,7 @@ public class KnowledgeHierPresenter implements KnowledgeHierContract.Presenter {
         model.getDetailKnowledgeHierFromIn()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxFragment) view).bindToLifecycle())
                 .subscribe(new Observer<PrimaryArticleDirectoryRes>() {
                     @Override
                     public void onSubscribe(Disposable d) {

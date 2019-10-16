@@ -3,16 +3,16 @@ package com.chejdj.wanandroid.ui.base;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.chejdj.wanandroid.R;
+
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import butterknife.ButterKnife;
 
-public abstract class WanAndroidBaseFragment extends Fragment {
+public abstract class WanAndroidBaseFragment extends RxFragment {
     public WanAndroidBasePresenter presenter = null;
     private static final String TAG = "WanAndroidBaseFragment";
     private View rootView;
@@ -44,5 +44,6 @@ public abstract class WanAndroidBaseFragment extends Fragment {
     }
 
     protected abstract int getLayoutId();
+
     protected abstract void initView();
 }

@@ -5,6 +5,8 @@ import com.chejdj.wanandroid.db.account.entity.Account;
 import com.chejdj.wanandroid.network.bean.login.LoginStateBean;
 import com.chejdj.wanandroid.ui.login.contract.LoginContract;
 import com.chejdj.wanandroid.ui.login.model.LoginModel;
+import com.trello.rxlifecycle2.components.RxActivity;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -25,6 +27,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         model.login(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxAppCompatActivity) view).bindToLifecycle())
                 .subscribe(new Observer<LoginStateBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -64,6 +67,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         model.register(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxAppCompatActivity) view).bindToLifecycle())
                 .subscribe(new Observer<LoginStateBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {

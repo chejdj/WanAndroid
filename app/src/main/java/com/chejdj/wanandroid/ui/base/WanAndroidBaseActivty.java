@@ -2,14 +2,14 @@ package com.chejdj.wanandroid.ui.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.chejdj.wanandroid.WanAndroidApplication;
 import com.chejdj.wanandroid.util.DisplayUtil;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
 
-public abstract class WanAndroidBaseActivty extends AppCompatActivity {
+public abstract class WanAndroidBaseActivty extends RxAppCompatActivity {
     public WanAndroidBasePresenter presenter = null;
 
     @Override

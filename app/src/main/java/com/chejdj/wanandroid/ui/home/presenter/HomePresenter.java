@@ -12,6 +12,7 @@ import com.chejdj.wanandroid.network.bean.homepage.HomeBanner;
 import com.chejdj.wanandroid.network.bean.homepage.HomeBannerData;
 import com.chejdj.wanandroid.ui.home.contract.HomeContract;
 import com.chejdj.wanandroid.ui.home.model.HomeModel;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,6 +42,7 @@ public class HomePresenter implements HomeContract.Presenter {
     public void getBannerData() {
         model.getBannerDataFromIn().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxFragment) view).bindToLifecycle())
                 .doOnNext((HomeBannerData homeBannerData) -> {
                     if (view != null && homeBannerData.getErrorCode() == 0) {
                         view.showBanner(homeBannerData.getData());
@@ -84,6 +86,7 @@ public class HomePresenter implements HomeContract.Presenter {
         model.getBannerDataFromDB()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxFragment) view).bindToLifecycle())
                 .map((List<HomeBannerDB> homeBannerDBS) -> {
                     List<HomeBanner> bannerList = new ArrayList<>();
                     for (HomeBannerDB db : homeBannerDBS) {
@@ -127,6 +130,7 @@ public class HomePresenter implements HomeContract.Presenter {
     public void getArticles(int pageNums) {
         model.getArticles(pageNums).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxFragment) view).bindToLifecycle())
                 .doOnNext((ArticleDataRes articleDataRes) -> {
                     if (view != null && articleDataRes.getErrorCode() == 0) {
                         view.showArticles(articleDataRes.getData());
@@ -172,6 +176,7 @@ public class HomePresenter implements HomeContract.Presenter {
         model.getHomeArticleDB()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxFragment) view).bindToLifecycle())
                 .subscribe(new Observer<List<HomeArticleDB>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

@@ -8,6 +8,8 @@ import com.chejdj.wanandroid.network.bean.article.ArticleData;
 import com.chejdj.wanandroid.network.bean.article.ArticleDataRes;
 import com.chejdj.wanandroid.ui.me.contract.MeContract;
 import com.chejdj.wanandroid.ui.me.model.MeModel;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,7 @@ public class MePresneter implements MeContract.Presenter {
         model.getCollectArticlesFromIn(pageNum)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxFragment) view).bindToLifecycle())
                 .doOnNext((ArticleDataRes articleDataRes) -> {
                     if (view != null) {
                         view.showCollectArticle(articleDataRes.getData());
@@ -76,6 +79,7 @@ public class MePresneter implements MeContract.Presenter {
         model.getCollectArticleFromDB()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxFragment) view).bindToLifecycle())
                 .subscribe(new Observer<List<CollectArticleDB>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

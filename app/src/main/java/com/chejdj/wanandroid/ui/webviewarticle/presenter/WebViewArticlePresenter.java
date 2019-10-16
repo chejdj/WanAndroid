@@ -10,7 +10,6 @@ import com.chejdj.wanandroid.ui.webviewarticle.model.WebViewArticleModel;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -77,7 +76,7 @@ public class WebViewArticlePresenter implements WebViewArticleContract.Presenter
                     }
                 })
                 .flatMap((ArticleDataRes articleDataRes) ->
-                     model.deleteCollectArticle(article.getTitle(), article.getAuthor()))
+                        model.deleteCollectArticle(article.getTitle(), article.getAuthor()))
                 .subscribe(new Observer<Boolean>() {
                     @Override
                     public void onSubscribe(Disposable d) {

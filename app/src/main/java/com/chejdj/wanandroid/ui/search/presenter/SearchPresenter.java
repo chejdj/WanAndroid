@@ -6,6 +6,8 @@ import com.chejdj.wanandroid.network.bean.article.ArticleDataRes;
 import com.chejdj.wanandroid.network.bean.hotkey.HotKeyData;
 import com.chejdj.wanandroid.ui.search.contract.SearchContract;
 import com.chejdj.wanandroid.ui.search.model.SearchModel;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,6 +29,7 @@ public class SearchPresenter implements SearchContract.Presenter {
         model.getHotKeysFromIn()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxAppCompatActivity) view).bindToLifecycle())
                 .subscribe(new Observer<HotKeyData>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -64,6 +67,7 @@ public class SearchPresenter implements SearchContract.Presenter {
         model.getSearchArticleFromIn(pageNum, keywords)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(((RxAppCompatActivity) view).bindToLifecycle())
                 .subscribe(new Observer<ArticleDataRes>() {
                     @Override
                     public void onSubscribe(Disposable d) {

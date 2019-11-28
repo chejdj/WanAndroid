@@ -5,7 +5,7 @@ import com.chejdj.wanandroid.db.account.AccountManager;
 import com.chejdj.wanandroid.db.entity.CollectArticleDB;
 import com.chejdj.wanandroid.db.entity.CollectArticleDB_;
 import com.chejdj.wanandroid.network.bean.article.Article;
-import com.chejdj.wanandroid.util.SharedPreferenceUtil;
+import com.chejdj.wanandroid.util.SharedPreferenceUtils;
 
 import java.util.List;
 
@@ -81,10 +81,10 @@ public class CollectArticleTableManager {
 
     public Observable<Boolean> updateCollectArticleDB(List<CollectArticleDB> collectArticleDBS) {
         return Observable.create((emitter -> {
-            if (System.currentTimeMillis() - SharedPreferenceUtil.LoadLongData(CACHE_FILE_NAME, CACHE_COLLECT_ARTICLE_KEY) >= dayTimeMillis) {
+            if (System.currentTimeMillis() - SharedPreferenceUtils.LoadLongData(CACHE_FILE_NAME, CACHE_COLLECT_ARTICLE_KEY) >= dayTimeMillis) {
                 collectArticleBox.removeAll();
                 collectArticleBox.put(collectArticleDBS);
-                SharedPreferenceUtil.putData(CACHE_FILE_NAME, CACHE_COLLECT_ARTICLE_KEY, System.currentTimeMillis());
+                SharedPreferenceUtils.putData(CACHE_FILE_NAME, CACHE_COLLECT_ARTICLE_KEY, System.currentTimeMillis());
             }
             emitter.onNext(true);
             emitter.onComplete();

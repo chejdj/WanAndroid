@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.chejdj.wanandroid.WanAndroidApplication;
-import com.chejdj.wanandroid.util.DisplayUtil;
+import com.chejdj.wanandroid.util.DisplayUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
@@ -16,7 +16,7 @@ public abstract class WanAndroidBaseActivty extends RxAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        DisplayUtil.setCustomDensity(this, WanAndroidApplication.getMyApplication());
+        DisplayUtils.setCustomDensity(this, WanAndroidApplication.getMyApplication());
         initBind();
         initView();
     }

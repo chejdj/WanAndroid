@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 import com.chejdj.wanandroid.WanAndroidApplication;
 
 
-public class SharedPreferenceUtil {
-    private static final String TAG = "SharedPreferenceUtil";
+public class SharedPreferenceUtils {
+    private static final String TAG = "SharedPreferenceUtils";
 
     public static boolean putData(String filename, String key, String value) {
         SharedPreferences sharedPreferences = WanAndroidApplication.getMyApplication().getSharedPreferences(filename, Context.MODE_PRIVATE);

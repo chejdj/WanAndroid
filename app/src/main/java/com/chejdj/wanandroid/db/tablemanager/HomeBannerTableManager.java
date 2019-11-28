@@ -2,7 +2,7 @@ package com.chejdj.wanandroid.db.tablemanager;
 
 import com.chejdj.wanandroid.db.ObjectBox;
 import com.chejdj.wanandroid.db.entity.HomeBannerDB;
-import com.chejdj.wanandroid.util.SharedPreferenceUtil;
+import com.chejdj.wanandroid.util.SharedPreferenceUtils;
 
 import java.util.List;
 
@@ -29,10 +29,10 @@ public class HomeBannerTableManager {
 
     public Observable<Boolean> updateHomeArticleDB(final List<HomeBannerDB> data) {
         return Observable.create(emitter -> {
-            if (System.currentTimeMillis() - SharedPreferenceUtil.LoadLongData(CACHE_FILE_NAME, CACHE_HOME_BANNER_KEY) >= dayTimeMillis) {
+            if (System.currentTimeMillis() - SharedPreferenceUtils.LoadLongData(CACHE_FILE_NAME, CACHE_HOME_BANNER_KEY) >= dayTimeMillis) {
                 homeBannerDBBox.removeAll();
                 homeBannerDBBox.put(data);
-                SharedPreferenceUtil.putData(CACHE_FILE_NAME, CACHE_HOME_BANNER_KEY, System.currentTimeMillis());
+                SharedPreferenceUtils.putData(CACHE_FILE_NAME, CACHE_HOME_BANNER_KEY, System.currentTimeMillis());
             }
             emitter.onNext(true);
             emitter.onComplete();

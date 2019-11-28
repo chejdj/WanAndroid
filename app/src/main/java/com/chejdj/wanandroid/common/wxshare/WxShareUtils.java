@@ -1,4 +1,4 @@
-package com.chejdj.wanandroid.util.wxshare;
+package com.chejdj.wanandroid.common.wxshare;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -6,27 +6,27 @@ import android.widget.Toast;
 
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.WanAndroidApplication;
-import com.chejdj.wanandroid.util.StringUtil;
+import com.chejdj.wanandroid.util.StringUtils;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
-public class WxShareUtil {
+public class WxShareUtils {
     private static final String APP_ID = "wxdf25b090687b0c33"; //填入自己的APPID
     private IWXAPI api;
 
-    private WxShareUtil() {
+    private WxShareUtils() {
         api = WXAPIFactory.createWXAPI(WanAndroidApplication.getMyApplication(), APP_ID, true);
         api.registerApp(APP_ID);
     }
 
     static class Wrapper {
-        static WxShareUtil INSTANCE = new WxShareUtil();
+        static WxShareUtils INSTANCE = new WxShareUtils();
     }
 
-    public static WxShareUtil getInstance() {
+    public static WxShareUtils getInstance() {
         return Wrapper.INSTANCE;
     }
 
@@ -50,7 +50,7 @@ public class WxShareUtil {
         req.scene = type == 0 ? SendMessageToWX.Req.WXSceneSession : SendMessageToWX.Req.WXSceneTimeline;
         boolean state = api.sendReq(req);
         if (!state) {
-            Toast.makeText(context, StringUtil.getString(context, R.string.wx_share_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, StringUtils.getString(context, R.string.wx_share_error), Toast.LENGTH_SHORT).show();
         }
     }
 }

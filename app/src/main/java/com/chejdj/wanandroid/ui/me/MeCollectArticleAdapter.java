@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.article.Article;
-import com.chejdj.wanandroid.util.StringUtil;
+import com.chejdj.wanandroid.util.StringUtils;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class MeCollectArticleAdapter extends BaseQuickAdapter<Article, MeCollect
     @Override
     protected void convert(MeCollectArticleHolder helper, Article item) {
         helper.title.setText(HtmlCompat.fromHtml(item.getTitle(), FROM_HTML_MODE_LEGACY));
-        helper.time.setText(StringUtil.timeToString(item.getPublishTime()));
+        helper.time.setText(StringUtils.timeToString(item.getPublishTime()));
         helper.author.setText(item.getAuthor());
     }
 

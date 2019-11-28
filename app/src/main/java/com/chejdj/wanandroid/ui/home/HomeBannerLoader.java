@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.chejdj.wanandroid.network.bean.homepage.HomeBanner;
-import com.chejdj.wanandroid.util.glide.ExploreImageLoader;
+import com.chejdj.wanandroid.common.glide.ExploreImageLoader;
 import com.youth.banner.loader.ImageLoader;
 
 

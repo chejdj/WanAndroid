@@ -2,7 +2,7 @@ package com.chejdj.wanandroid.db.tablemanager;
 
 import com.chejdj.wanandroid.db.ObjectBox;
 import com.chejdj.wanandroid.db.entity.HomeArticleDB;
-import com.chejdj.wanandroid.util.SharedPreferenceUtil;
+import com.chejdj.wanandroid.util.SharedPreferenceUtils;
 
 import java.util.List;
 
@@ -30,10 +30,10 @@ public class HomeArticleTableManager {
 
     public Observable<Boolean> updateHomeArticleDB(final List<HomeArticleDB> data) {
         return Observable.create(emitter -> {
-            if (System.currentTimeMillis() - SharedPreferenceUtil.LoadLongData(CACHE_FILE_NAME, CACHE_HOME_ARTICLE_KEY) >= dayTimeMillis) {
+            if (System.currentTimeMillis() - SharedPreferenceUtils.LoadLongData(CACHE_FILE_NAME, CACHE_HOME_ARTICLE_KEY) >= dayTimeMillis) {
                 homeArticleBox.removeAll();
                 homeArticleBox.put(data);
-                SharedPreferenceUtil.putData(CACHE_FILE_NAME, CACHE_HOME_ARTICLE_KEY, System.currentTimeMillis());
+                SharedPreferenceUtils.putData(CACHE_FILE_NAME, CACHE_HOME_ARTICLE_KEY, System.currentTimeMillis());
             }
             emitter.onNext(true);
             emitter.onComplete();

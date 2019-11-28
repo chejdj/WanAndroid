@@ -1,4 +1,4 @@
-package com.chejdj.wanandroid.util.glide;
+package com.chejdj.wanandroid.common.glide;
 
 import android.content.Context;
 import android.widget.ImageView;

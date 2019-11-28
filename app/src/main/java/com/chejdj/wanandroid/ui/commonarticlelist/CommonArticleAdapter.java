@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.article.Article;
-import com.chejdj.wanandroid.util.StringUtil;
+import com.chejdj.wanandroid.util.StringUtils;
 
 import java.util.List;
 
@@ -36,8 +36,8 @@ public class CommonArticleAdapter extends BaseQuickAdapter<Article, CommonArticl
         }
         String category = item.getSuperChapterName() + "/" + item.getChapterName();
         String tags = item.getTags() == null || item.getTags().size() == 0 ? "分类" : item.getTags().get(0).getName();
-        String time = StringUtil.timeToString(item.getPublishTime());
-        if (tags.equals(TAG_PROJECT) && !StringUtil.isEmpty(item.getEnvelopePic())) {
+        String time = StringUtils.timeToString(item.getPublishTime());
+        if (tags.equals(TAG_PROJECT) && !StringUtils.isEmpty(item.getEnvelopePic())) {
             helper.projectImageView.setVisibility(View.VISIBLE);
             Glide.with(helper.itemView).load(item.getEnvelopePic()).into(helper.projectImageView);
         } else {

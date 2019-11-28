@@ -12,7 +12,7 @@ import com.chejdj.wanandroid.ui.base.WanAndroidBaseActivty;
 import com.chejdj.wanandroid.ui.login.contract.LoginContract;
 import com.chejdj.wanandroid.ui.login.presenter.LoginPresenter;
 import com.chejdj.wanandroid.ui.main.MainActivity;
-import com.chejdj.wanandroid.util.StringUtil;
+import com.chejdj.wanandroid.util.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -47,8 +47,8 @@ public class LoginActivity extends WanAndroidBaseActivty implements LoginContrac
     public void login() {
         String username = usernameET.getText().toString();
         String password = passwordET.getText().toString();
-        if (StringUtil.isEmpty(username) || StringUtil.isEmpty(password)) {
-            Toast.makeText(this,StringUtil.getString(this,R.string.login_warning) , Toast.LENGTH_SHORT).show();
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+            Toast.makeText(this, StringUtils.getString(this,R.string.login_warning) , Toast.LENGTH_SHORT).show();
             return;
         }
         if (!isRegister) {
@@ -61,11 +61,11 @@ public class LoginActivity extends WanAndroidBaseActivty implements LoginContrac
     @OnClick(R.id.register)
     public void register() {
         if (isRegister) {
-            title.setText(StringUtil.getString(this,R.string.login));
-            login.setText(StringUtil.getString(this,R.string.login));
+            title.setText(StringUtils.getString(this,R.string.login));
+            login.setText(StringUtils.getString(this,R.string.login));
         } else {
-            title.setText(StringUtil.getString(this,R.string.register));
-            login.setText(StringUtil.getString(this,R.string.register_and_login));
+            title.setText(StringUtils.getString(this,R.string.register));
+            login.setText(StringUtils.getString(this,R.string.register_and_login));
         }
         isRegister = !isRegister;
     }

@@ -2,7 +2,7 @@ package com.chejdj.wanandroid.db.account;
 
 
 import com.chejdj.wanandroid.db.account.entity.Account;
-import com.chejdj.wanandroid.util.SharedPreferenceUtil;
+import com.chejdj.wanandroid.util.SharedPreferenceUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -71,7 +71,7 @@ public class AccountManager {
 
     public void clearAccount() {
         Observable<Boolean> observable = Observable.create(emitter -> {
-            boolean isSuccess = SharedPreferenceUtil.removeData(PREF_NAME, USERNAME);
+            boolean isSuccess = SharedPreferenceUtils.removeData(PREF_NAME, USERNAME);
             emitter.onNext(isSuccess);
             emitter.onComplete();
         });
@@ -109,7 +109,7 @@ public class AccountManager {
 
     private Observable<Account> getAccountFromDB() {
         return Observable.create(emitter -> {
-            String name = SharedPreferenceUtil.LoadStringData(PREF_NAME, USERNAME);
+            String name = SharedPreferenceUtils.LoadStringData(PREF_NAME, USERNAME);
             Account account = null;
             if (name != null) {
                 account = new Account(name);
@@ -121,7 +121,7 @@ public class AccountManager {
 
     public void addAccountToDB(String username) {
         Observable<String> observable = Observable.create(emitter -> {
-            boolean isSuccess = SharedPreferenceUtil.putData(PREF_NAME, USERNAME, username);
+            boolean isSuccess = SharedPreferenceUtils.putData(PREF_NAME, USERNAME, username);
             if (isSuccess) {
                 emitter.onNext(username);
             } else {

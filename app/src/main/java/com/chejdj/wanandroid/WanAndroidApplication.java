@@ -2,10 +2,10 @@ package com.chejdj.wanandroid;
 
 import android.app.Application;
 
+import com.chejdj.wanandroid.common.crash.CrashHandler;
 import com.chejdj.wanandroid.db.ObjectBox;
 import com.chejdj.wanandroid.db.account.AccountManager;
 import com.chejdj.wanandroid.ui.webviewarticle.sonic.SonicRuntimeImpl;
-import com.didichuxing.doraemonkit.DoraemonKit;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.sonic.sdk.SonicConfig;
@@ -25,11 +25,15 @@ public class WanAndroidApplication extends Application {
             LeakCanary.install(this);
         }
         initSonic();
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(this);
+        Thread.setDefaultUncaughtExceptionHandler(crashHandler);
     }
 
     private void initSonic() {
         if (!SonicEngine.isGetInstanceAllowed()) {
-            SonicEngine.createInstance(new SonicRuntimeImpl(this), new SonicConfig.Builder().build());
+            SonicEngine.createInstance(new SonicRuntimeImpl(this),
+                new SonicConfig.Builder().build());
         }
     }
 

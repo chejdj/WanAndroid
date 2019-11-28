@@ -25,9 +25,9 @@ import com.chejdj.wanandroid.ui.webviewarticle.contract.WebViewArticleContract;
 import com.chejdj.wanandroid.ui.webviewarticle.presenter.WebViewArticlePresenter;
 import com.chejdj.wanandroid.ui.webviewarticle.sonic.SonicRuntimeImpl;
 import com.chejdj.wanandroid.ui.webviewarticle.sonic.SonicSessionClientImpl;
-import com.chejdj.wanandroid.util.DisplayUtil;
-import com.chejdj.wanandroid.util.StringUtil;
-import com.chejdj.wanandroid.util.wxshare.WxShareDialog;
+import com.chejdj.wanandroid.util.DisplayUtils;
+import com.chejdj.wanandroid.util.StringUtils;
+import com.chejdj.wanandroid.common.wxshare.WxShareDialog;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.tencent.sonic.sdk.SonicConfig;
 import com.tencent.sonic.sdk.SonicEngine;
@@ -69,7 +69,7 @@ public class WebViewArticleActivity extends AppCompatActivity implements WebView
         collectState = intent.getBooleanExtra(COLLECT_STATE, false);
         initSonic();
         setContentView(R.layout.activity_webview_article);
-        DisplayUtil.setCustomDensity(this, WanAndroidApplication.getMyApplication());
+        DisplayUtils.setCustomDensity(this, WanAndroidApplication.getMyApplication());
         ButterKnife.bind(this);
         initView();
         initWebView();
@@ -171,7 +171,7 @@ public class WebViewArticleActivity extends AppCompatActivity implements WebView
                 presenter.collect(article);
             }
         } else {
-            Toast.makeText(this, StringUtil.getString(this, R.string.please_login), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, StringUtils.getString(this, R.string.please_login), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -193,7 +193,7 @@ public class WebViewArticleActivity extends AppCompatActivity implements WebView
             }
             EventBus.getDefault().post(new UnCollectArticleSucEvent());
         } else {
-            Toast.makeText(this, StringUtil.getString(this, R.string.collect_fail), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, StringUtils.getString(this, R.string.collect_fail), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -207,7 +207,7 @@ public class WebViewArticleActivity extends AppCompatActivity implements WebView
             }
             EventBus.getDefault().post(new UnCollectArticleSucEvent());
         } else {
-            Toast.makeText(this, StringUtil.getString(this, R.string.cancel_collect_fail), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, StringUtils.getString(this, R.string.cancel_collect_fail), Toast.LENGTH_SHORT).show();
         }
     }
 

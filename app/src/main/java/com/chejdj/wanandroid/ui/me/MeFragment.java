@@ -24,7 +24,7 @@ import com.chejdj.wanandroid.ui.login.LoginActivity;
 import com.chejdj.wanandroid.ui.me.contract.MeContract;
 import com.chejdj.wanandroid.ui.me.presenter.MePresneter;
 import com.chejdj.wanandroid.ui.webviewarticle.WebViewArticleActivity;
-import com.chejdj.wanandroid.util.StringUtil;
+import com.chejdj.wanandroid.util.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -72,7 +72,7 @@ public class MeFragment extends FragmentManagerLazyLoadFragment implements MeCon
         currentPage = 0;
         if (!AccountManager.getInstance().isLogin()) {
             scrollView.setVisibility(View.VISIBLE);
-            warningTx.setText(StringUtil.getString(getContext(), R.string.logout_collect_warning));
+            warningTx.setText(StringUtils.getString(getContext(), R.string.logout_collect_warning));
             recyclerView.setVisibility(View.GONE);
         } else {
             if (scrollView.getVisibility() == View.VISIBLE) {
@@ -134,7 +134,7 @@ public class MeFragment extends FragmentManagerLazyLoadFragment implements MeCon
                     .setPositiveButton("No No No", (dialogInterface, i) -> {
                         dialogInterface.dismiss();
                     })
-                    .setMessage(StringUtil.getString(getContext(), R.string.logout_warning)).create();
+                    .setMessage(StringUtils.getString(getContext(), R.string.logout_warning)).create();
             alertDialog.show();
         }
     }
@@ -166,7 +166,7 @@ public class MeFragment extends FragmentManagerLazyLoadFragment implements MeCon
             if (scrollView.getVisibility() == View.GONE) {
                 scrollView.setVisibility(View.VISIBLE);
             }
-            warningTx.setText(StringUtil.getString(getContext(), R.string.no_collected_article));
+            warningTx.setText(StringUtils.getString(getContext(), R.string.no_collected_article));
         } else {
             if (scrollView.getVisibility() == View.VISIBLE) {
                 scrollView.setVisibility(View.GONE);

@@ -1,4 +1,4 @@
-package com.chejdj.wanandroid.util.wxshare;
+package com.chejdj.wanandroid.common.wxshare;
 
 import android.content.Context;
 import android.util.Log;
@@ -18,10 +18,10 @@ public class WxShareDialog {
         View.OnClickListener listener = (View v) -> {
             switch (v.getId()) {
                 case R.id.share_friends:
-                    WxShareUtil.getInstance().shareToWeChat(context, article.getLink(), article.getTitle(), article.getDesc(), 0);
+                    WxShareUtils.getInstance().shareToWeChat(context, article.getLink(), article.getTitle(), article.getDesc(), 0);
                     break;
                 case R.id.share_timeline:
-                    WxShareUtil.getInstance().shareToWeChat(context, article.getLink(), article.getTitle(), article.getDesc(), 1);
+                    WxShareUtils.getInstance().shareToWeChat(context, article.getLink(), article.getTitle(), article.getDesc(), 1);
                     break;
                 default:
                     Log.e("WxShareDialg", "no this view" + v.getId());

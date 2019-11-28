@@ -5,7 +5,7 @@ import android.content.Context;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-public class StringUtil {
+public class StringUtils {
     public static boolean isEmpty(String data) {
         return data == null || data.length() == 0;
     }

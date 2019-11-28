@@ -21,7 +21,7 @@ import java.util.Random;
  * Created by jxy on 2018/6/21.
  */
 
-public class CommonUtil {
+public class CommonUtils {
 
     /**
      * 隐藏键盘

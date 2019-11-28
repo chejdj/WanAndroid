@@ -17,7 +17,7 @@ import java.lang.reflect.Method;
  * Created by 皓然 on 2017/6/18.
  */
 
-public class DisplayUtil {
+public class DisplayUtils {
     //获取屏幕原始尺寸高度，包括虚拟功能键高度
     public static int getDpi(Context context){
         int dpi = 0;

@@ -12,7 +12,7 @@ import android.support.v4.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PermissionUtil {
+public class PermissionUtils {
     public static int REQUEST_CODE = 22;
     public static String[] PERMISSIONS_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 

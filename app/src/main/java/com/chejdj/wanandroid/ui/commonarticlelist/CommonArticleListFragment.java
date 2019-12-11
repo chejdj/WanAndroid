@@ -12,7 +12,6 @@ import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.article.Article;
 import com.chejdj.wanandroid.network.bean.article.ArticleData;
 import com.chejdj.wanandroid.ui.base.ViewPaperLazyLoadFragment;
-import com.chejdj.wanandroid.ui.base.WanAndroidBaseFragment;
 import com.chejdj.wanandroid.ui.commonarticlelist.contract.CommonArticleListContract;
 import com.chejdj.wanandroid.ui.commonarticlelist.presenter.CommonArticleListPresenter;
 import com.chejdj.wanandroid.ui.webviewarticle.WebViewArticleActivity;

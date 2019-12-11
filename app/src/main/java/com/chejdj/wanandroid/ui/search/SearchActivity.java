@@ -15,7 +15,7 @@ import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.article.Article;
 import com.chejdj.wanandroid.network.bean.article.ArticleData;
 import com.chejdj.wanandroid.network.bean.hotkey.HotKey;
-import com.chejdj.wanandroid.ui.base.WanAndroidBaseActivty;
+import com.chejdj.wanandroid.ui.base.WanAndroidBaseActivity;
 import com.chejdj.wanandroid.ui.commonarticlelist.CommonArticleAdapter;
 import com.chejdj.wanandroid.ui.search.contract.SearchContract;
 import com.chejdj.wanandroid.ui.search.presenter.SearchPresenter;
@@ -30,7 +30,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SearchActivity extends WanAndroidBaseActivty implements SearchContract.View {
+public class SearchActivity extends WanAndroidBaseActivity implements SearchContract.View {
     @BindView(R.id.searchTx)
     EditText searchTx;
     @BindView(R.id.hot_searchTx)

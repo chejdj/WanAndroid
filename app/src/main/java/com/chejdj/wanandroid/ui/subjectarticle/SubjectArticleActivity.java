@@ -3,14 +3,12 @@ package com.chejdj.wanandroid.ui.subjectarticle;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.knowledgesystem.SecondaryArticleDirectory;
-import com.chejdj.wanandroid.ui.base.WanAndroidBaseActivty;
-import com.chejdj.wanandroid.ui.commonarticlelist.CommonArticleListFragment;
+import com.chejdj.wanandroid.ui.base.WanAndroidBaseActivity;
 import com.chejdj.wanandroid.ui.commonarticlelist.CommonPagerFragmentAdapter;
 
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 //用于显示体系下，或者某个项目的专题文章
-public class SubjectArticleActivity extends WanAndroidBaseActivty {
+public class SubjectArticleActivity extends WanAndroidBaseActivity {
     private static final String SUB_TITLE = "title";
     private static final String DETAIL_DIRECTORY = "directory";
     private static final int TYPE_COMMON_LIST_FRAGMENT = 1;//代表和CommonArticleListFragment的协议

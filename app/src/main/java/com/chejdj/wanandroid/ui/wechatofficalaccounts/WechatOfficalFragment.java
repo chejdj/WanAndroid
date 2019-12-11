@@ -1,7 +1,6 @@
 package com.chejdj.wanandroid.ui.wechatofficalaccounts;
 
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -10,8 +9,6 @@ import android.widget.RelativeLayout;
 import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectory;
 import com.chejdj.wanandroid.ui.base.FragmentManagerLazyLoadFragment;
-import com.chejdj.wanandroid.ui.base.WanAndroidBaseFragment;
-import com.chejdj.wanandroid.ui.commonarticlelist.CommonArticleListFragment;
 import com.chejdj.wanandroid.ui.commonarticlelist.CommonPagerFragmentAdapter;
 import com.chejdj.wanandroid.ui.wechatofficalaccounts.contract.WeChatOfficalContractor;
 import com.chejdj.wanandroid.ui.wechatofficalaccounts.presenter.WechatOfficalPresenter;

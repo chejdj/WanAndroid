@@ -10,7 +10,6 @@ import com.chejdj.wanandroid.R;
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectory;
 import com.chejdj.wanandroid.network.bean.knowledgesystem.PrimaryArticleDirectoryRes;
 import com.chejdj.wanandroid.ui.base.FragmentManagerLazyLoadFragment;
-import com.chejdj.wanandroid.ui.base.WanAndroidBaseFragment;
 import com.chejdj.wanandroid.ui.knowledgehierarchy.contract.KnowledgeHierContract;
 import com.chejdj.wanandroid.ui.knowledgehierarchy.presenter.KnowledgeHierPresenter;
 import com.chejdj.wanandroid.ui.subjectarticle.SubjectArticleActivity;

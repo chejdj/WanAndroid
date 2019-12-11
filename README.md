@@ -16,6 +16,9 @@ https://github.com/chejdj/WanAndroid-Kotlin
 * 文章搜索模块
 * WebView文章浏览模块
 * 数据库本地缓存模块
+### 整体架构
+![WanAndroid架构](https://raw.githubusercontent.com/chejdj/WanAndroid/master/image/WanAndroid-Architecture.jpg)
+
 ### 第三方开源库
 * [Objectbox](https://github.com/objectbox/objectbox-java)(数据库框架)
 * [Glide](https://github.com/bumptech/glide)(图片加载框架)

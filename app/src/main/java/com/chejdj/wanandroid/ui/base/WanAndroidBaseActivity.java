@@ -9,7 +9,7 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
 
-public abstract class WanAndroidBaseActivty extends RxAppCompatActivity {
+public abstract class WanAndroidBaseActivity extends RxAppCompatActivity {
     public WanAndroidBasePresenter presenter = null;
 
     @Override
